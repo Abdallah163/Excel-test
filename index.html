@@ -1,161 +1,405 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="ar" dir="rtl">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>Excel Skills Test</title>
+    <title>اختبار مهارات Excel</title>
 
-<style>
 
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    margin: 0;
-    padding: 30px;
-}
+    <style>
 
-.container {
-    max-width: 700px;
-    margin: auto;
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-}
+        * {
+            box-sizing: border-box;
+        }
 
-h1 {
-    text-align: center;
-}
 
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0 20px;
-    box-sizing: border-box;
-}
+        body {
 
-button {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    background: #198754;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
+            font-family:
+                Arial,
+                Tahoma,
+                sans-serif;
 
-button:hover {
-    background: #157347;
-}
+            background: #f4f6f8;
 
-.option {
-    display: block;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    cursor: pointer;
-}
+            margin: 0;
 
-.option:hover {
-    background: #f0f0f0;
-}
+            padding: 30px;
 
-#test {
-    display: none;
-}
+            direction: rtl;
 
-#result {
-    display: none;
-    text-align: center;
-}
+        }
 
-.timer {
-    text-align: right;
-    font-weight: bold;
-    color: red;
-}
 
-</style>
+        .container {
+
+            max-width: 700px;
+
+            margin: 30px auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.1);
+
+        }
+
+
+        h1 {
+
+            text-align: center;
+
+            color: #198754;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .info {
+
+            text-align: center;
+
+            color: #555;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 14px;
+
+            margin: 10px 0 20px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            direction: rtl;
+
+        }
+
+
+        input:focus {
+
+            outline: none;
+
+            border-color: #198754;
+
+        }
+
+
+        button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #198754;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            margin-top: 8px;
+
+        }
+
+
+        button:hover {
+
+            background: #157347;
+
+        }
+
+
+        #test {
+
+            display: none;
+
+        }
+
+
+        #result {
+
+            display: none;
+
+            text-align: center;
+
+        }
+
+
+        .timer {
+
+            text-align: center;
+
+            font-weight: bold;
+
+            color: #dc3545;
+
+            background: #fff3f3;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .question-number {
+
+            color: #198754;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        #question {
+
+            line-height: 1.7;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        #options {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+        }
+
+
+        .option {
+
+            background: white;
+
+            color: #333;
+
+            border: 1px solid #ddd;
+
+            text-align: right;
+
+            margin: 0;
+
+        }
+
+
+        .option:hover {
+
+            background: #f0f8f4;
+
+            border-color: #198754;
+
+        }
+
+
+        .score-box {
+
+            background: #f4f6f8;
+
+            border-radius: 10px;
+
+            padding: 20px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .score-box h2 {
+
+            color: #198754;
+
+        }
+
+
+        .saving {
+
+            margin-top: 20px;
+
+            color: #666;
+
+            font-size: 14px;
+
+        }
+
+
+        .success {
+
+            color: #198754;
+
+            font-weight: bold;
+
+        }
+
+
+    </style>
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
-    <h1>Microsoft Excel Test</h1>
+
+    <!-- Start Screen -->
 
     <div id="start">
 
-        <p>15 Questions</p>
+        <h1>
+            اختبار مهارات Microsoft Excel
+        </h1>
 
-        <p>30 Seconds per Question</p>
+
+        <div class="info">
+
+            <p>
+                اختبار مكون من 15 سؤالًا
+            </p>
+
+            <p>
+                لديك 30 ثانية لكل سؤال
+            </p>
+
+        </div>
+
 
         <input
             type="text"
             id="name"
-            placeholder="Enter your name"
+            placeholder="اكتب اسمك بالكامل"
+            autocomplete="name"
         >
 
-        <button onclick="startTest()">
-            Start Test
+
+        <button
+            type="button"
+            onclick="startTest()"
+        >
+
+            ابدأ الاختبار
+
         </button>
 
     </div>
 
 
+    <!-- Test Screen -->
+
     <div id="test">
 
+
         <div class="timer">
-            Time: <span id="timer">30</span>
+
+            الوقت المتبقي:
+
+            <span id="timer">
+                30
+            </span>
+
+            ثانية
+
         </div>
+
+
+        <div
+            class="question-number"
+            id="questionNumber"
+        >
+
+        </div>
+
 
         <h2 id="question"></h2>
 
+
         <div id="options"></div>
+
 
     </div>
 
+
+    <!-- Result Screen -->
 
     <div id="result">
 
-        <h2>Test Completed</h2>
 
-        <h3 id="score"></h3>
+        <h1>
+            انتهى الاختبار
+        </h1>
 
-        <p id="percentage"></p>
 
-        <p id="level"></p>
+        <div class="score-box">
+
+            <h2 id="score"></h2>
+
+            <p id="percentage"></p>
+
+            <p id="level"></p>
+
+        </div>
+
+
+        <p
+            id="saving"
+            class="saving"
+        >
+            جاري حفظ النتيجة...
+        </p>
+
 
     </div>
+
 
 </div>
 
 
 <script>
-/****************************************************
- * Excel Skills Test
- * Arabic
- * 15 Questions
- * 30 Seconds Per Question
- * Google Sheets Integration
- ****************************************************/
 
 
 /****************************************************
- * Google Apps Script Web App URL
+ * Google Apps Script Web App
  ****************************************************/
 
 const GOOGLE_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbyeVHqvW1EfRKCA7-nk1-OoWFBng9oDMDyvaabnMAr6TjpgnE4ggM9nahOhH-lWuUwy/exec";
+    "https://script.google.com/macros/s/AKfycbyXAoT2TM742x_lsBx4M-sQaVHReE6kMzCyLsuCZbUyJedW3rg4UcqMOpT-_Idle6eI/exec";
 
 
 /****************************************************
@@ -414,19 +658,9 @@ let timeLeft = 30;
 
 function startTest() {
 
+
     const nameInput =
         document.getElementById("name");
-
-
-    if (!nameInput) {
-
-        console.error(
-            "Element #name not found"
-        );
-
-        return;
-
-    }
 
 
     userName =
@@ -436,7 +670,7 @@ function startTest() {
     if (!userName) {
 
         alert(
-            "من فضلك اكتب اسمك أولاً"
+            "من فضلك اكتب اسمك بالكامل أولًا"
         );
 
         nameInput.focus();
@@ -446,7 +680,6 @@ function startTest() {
     }
 
 
-    // Reset test
     currentQuestion = 0;
 
     score = 0;
@@ -454,33 +687,16 @@ function startTest() {
     startTime = new Date();
 
 
-    // Hide start screen
-    const startScreen =
-        document.getElementById("start");
+    document
+        .getElementById("start")
+        .style.display = "none";
 
 
-    if (startScreen) {
-
-        startScreen.style.display =
-            "none";
-
-    }
+    document
+        .getElementById("test")
+        .style.display = "block";
 
 
-    // Show test
-    const testScreen =
-        document.getElementById("test");
-
-
-    if (testScreen) {
-
-        testScreen.style.display =
-            "block";
-
-    }
-
-
-    // Start first question
     showQuestion();
 
 }
@@ -491,6 +707,7 @@ function startTest() {
  ****************************************************/
 
 function showQuestion() {
+
 
     clearInterval(timerInterval);
 
@@ -504,50 +721,28 @@ function showQuestion() {
         questions[currentQuestion];
 
 
-    if (!question) {
-
-        finishTest();
-
-        return;
-
-    }
+    document
+        .getElementById("questionNumber")
+        .textContent =
+        `السؤال ${currentQuestion + 1} من ${questions.length}`;
 
 
-    // Question text
-    const questionElement =
-        document.getElementById("question");
+    document
+        .getElementById("question")
+        .textContent =
+        question.question;
 
 
-    if (questionElement) {
-
-        questionElement.textContent =
-            `${currentQuestion + 1} من ${questions.length} - ${question.question}`;
-
-    }
-
-
-    // Options container
     const optionsContainer =
         document.getElementById("options");
-
-
-    if (!optionsContainer) {
-
-        console.error(
-            "Element #options not found"
-        );
-
-        return;
-
-    }
 
 
     optionsContainer.innerHTML = "";
 
 
-    // Create options
     question.options.forEach(
         function(option, index) {
+
 
             const button =
                 document.createElement("button");
@@ -556,36 +751,33 @@ function showQuestion() {
             button.type = "button";
 
 
-            button.className =
-                "option";
+            button.className = "option";
 
 
-            button.textContent =
-                option;
+            button.textContent = option;
 
 
-            button.addEventListener(
-                "click",
+            button.onclick =
                 function() {
 
                     selectAnswer(index);
 
-                }
-            );
+                };
 
 
             optionsContainer.appendChild(
                 button
             );
 
+
         }
     );
 
 
-    // Start timer
     timerInterval =
         setInterval(
             function() {
+
 
                 timeLeft--;
 
@@ -598,10 +790,10 @@ function showQuestion() {
                         timerInterval
                     );
 
-
                     nextQuestion();
 
                 }
+
 
             },
             1000
@@ -611,21 +803,16 @@ function showQuestion() {
 
 
 /****************************************************
- * Update Timer
+ * Timer
  ****************************************************/
 
 function updateTimer() {
 
-    const timerElement =
-        document.getElementById("timer");
 
-
-    if (timerElement) {
-
-        timerElement.textContent =
-            timeLeft;
-
-    }
+    document
+        .getElementById("timer")
+        .textContent =
+        timeLeft;
 
 }
 
@@ -636,6 +823,7 @@ function updateTimer() {
 
 function selectAnswer(index) {
 
+
     clearInterval(timerInterval);
 
 
@@ -644,7 +832,6 @@ function selectAnswer(index) {
 
 
     if (
-        question &&
         index === question.answer
     ) {
 
@@ -663,6 +850,7 @@ function selectAnswer(index) {
  ****************************************************/
 
 function nextQuestion() {
+
 
     currentQuestion++;
 
@@ -690,27 +878,18 @@ function nextQuestion() {
 
 function finishTest() {
 
+
     clearInterval(timerInterval);
 
 
-    // End time
     const endTime =
         new Date();
 
 
-    // Calculate duration
-    let durationSeconds = 0;
-
-
-    if (startTime) {
-
-        durationSeconds =
-            Math.floor(
-                (endTime - startTime) /
-                1000
-            );
-
-    }
+    const durationSeconds =
+        Math.floor(
+            (endTime - startTime) / 1000
+        );
 
 
     const minutes =
@@ -727,7 +906,6 @@ function finishTest() {
         `${minutes} دقيقة و ${seconds} ثانية`;
 
 
-    // Score
     const total =
         questions.length;
 
@@ -738,8 +916,7 @@ function finishTest() {
         );
 
 
-    // Level
-    let level = "";
+    let level;
 
 
     if (percentage >= 90) {
@@ -769,74 +946,34 @@ function finishTest() {
     }
 
 
-    // Hide test
-    const testScreen =
-        document.getElementById("test");
+    document
+        .getElementById("test")
+        .style.display = "none";
 
 
-    if (testScreen) {
-
-        testScreen.style.display =
-            "none";
-
-    }
+    document
+        .getElementById("result")
+        .style.display = "block";
 
 
-    // Show result
-    const resultScreen =
-        document.getElementById("result");
+    document
+        .getElementById("score")
+        .textContent =
+        `درجتك: ${score} من ${total}`;
 
 
-    if (resultScreen) {
-
-        resultScreen.style.display =
-            "block";
-
-    }
+    document
+        .getElementById("percentage")
+        .textContent =
+        `النسبة: ${percentage}%`;
 
 
-    // Score
-    const scoreElement =
-        document.getElementById("score");
+    document
+        .getElementById("level")
+        .textContent =
+        `التقييم: ${level}`;
 
 
-    if (scoreElement) {
-
-        scoreElement.textContent =
-            `درجتك: ${score} من ${total}`;
-
-    }
-
-
-    // Percentage
-    const percentageElement =
-        document.getElementById(
-            "percentage"
-        );
-
-
-    if (percentageElement) {
-
-        percentageElement.textContent =
-            `النسبة: ${percentage}%`;
-
-    }
-
-
-    // Level
-    const levelElement =
-        document.getElementById("level");
-
-
-    if (levelElement) {
-
-        levelElement.textContent =
-            `التقييم: ${level}`;
-
-    }
-
-
-    // Save result
     saveResultToGoogleSheet({
 
         name: userName,
@@ -855,29 +992,26 @@ function finishTest() {
 
 
 /****************************************************
- * Send Result To Google Sheets
+ * Save Result To Google Sheets
  ****************************************************/
 
 function saveResultToGoogleSheet(data) {
 
-    console.log(
-        "Sending result...",
-        data
-    );
+
+    const saving =
+        document.getElementById("saving");
+
+
+    saving.textContent =
+        "جاري حفظ النتيجة...";
 
 
     /*
      * Hidden iframe
-     *
-     * We use a form POST instead of fetch()
-     * to avoid CORS problems.
      */
 
-
     const iframe =
-        document.createElement(
-            "iframe"
-        );
+        document.createElement("iframe");
 
 
     iframe.name =
@@ -893,15 +1027,15 @@ function saveResultToGoogleSheet(data) {
     );
 
 
-    // Create form
+    /*
+     * Form
+     */
+
     const form =
-        document.createElement(
-            "form"
-        );
+        document.createElement("form");
 
 
-    form.method =
-        "POST";
+    form.method = "POST";
 
 
     form.action =
@@ -916,7 +1050,10 @@ function saveResultToGoogleSheet(data) {
         "none";
 
 
-    // Add fields
+    /*
+     * Fields
+     */
+
     addFormField(
         form,
         "name",
@@ -952,47 +1089,45 @@ function saveResultToGoogleSheet(data) {
     );
 
 
-    // Add form to page
+    /*
+     * Submit
+     */
+
     document.body.appendChild(
         form
     );
 
 
-    // Submit
     form.submit();
 
 
-    console.log(
-        "Result submitted to Google Sheets"
-    );
+    /*
+     * Show success message
+     */
 
-
-    // Remove temporary elements
     setTimeout(
         function() {
 
-            if (form) {
+            saving.textContent =
+                "✓ تم حفظ النتيجة بنجاح";
 
-                form.remove();
+            saving.className =
+                "saving success";
 
-            }
 
+            form.remove();
 
-            if (iframe) {
-
-                iframe.remove();
-
-            }
+            iframe.remove();
 
         },
-        5000
+        2000
     );
 
 }
 
 
 /****************************************************
- * Add Hidden Form Field
+ * Add Form Field
  ****************************************************/
 
 function addFormField(
@@ -1001,30 +1136,29 @@ function addFormField(
     value
 ) {
 
+
     const input =
         document.createElement(
             "input"
         );
 
 
-    input.type =
-        "hidden";
+    input.type = "hidden";
 
 
-    input.name =
-        name;
+    input.name = name;
 
 
-    input.value =
-        value;
+    input.value = value;
 
 
-    form.appendChild(
-        input
-    );
+    form.appendChild(input);
 
 }
+
+
 </script>
+
 
 </body>
 
