@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 
 <head>
@@ -15,13 +14,11 @@
         اختبار Excel للقطاع الطبي و RCM
     </title>
 
-
     <style>
 
         * {
             box-sizing: border-box;
         }
-
 
         body {
 
@@ -44,9 +41,7 @@
             color: #222;
 
             direction: rtl;
-
         }
-
 
         .container {
 
@@ -63,9 +58,7 @@
             box-shadow:
                 0 8px 30px
                 rgba(0, 0, 0, 0.10);
-
         }
-
 
         h1 {
 
@@ -74,9 +67,7 @@
             color: #198754;
 
             margin-bottom: 10px;
-
         }
-
 
         .subtitle {
 
@@ -87,9 +78,14 @@
             line-height: 1.8;
 
             margin-bottom: 25px;
-
         }
 
+        .badges {
+
+            text-align: center;
+
+            margin-bottom: 25px;
+        }
 
         .badge {
 
@@ -106,18 +102,7 @@
             font-size: 13px;
 
             margin: 3px;
-
         }
-
-
-        .badges {
-
-            text-align: center;
-
-            margin-bottom: 25px;
-
-        }
-
 
         input {
 
@@ -134,9 +119,7 @@
             margin-bottom: 15px;
 
             direction: rtl;
-
         }
-
 
         input:focus {
 
@@ -147,9 +130,7 @@
             box-shadow:
                 0 0 0 3px
                 rgba(25, 135, 84, 0.1);
-
         }
-
 
         .main-button {
 
@@ -170,32 +151,19 @@
             font-weight: bold;
 
             cursor: pointer;
-
         }
-
 
         .main-button:hover {
 
             background: #157347;
-
         }
 
-
-        #test {
+        #test,
+        #result,
+        #preResult {
 
             display: none;
-
         }
-
-
-        #result {
-
-            display: none;
-
-            text-align: center;
-
-        }
-
 
         .top-bar {
 
@@ -208,9 +176,7 @@
             gap: 10px;
 
             margin-bottom: 20px;
-
         }
-
 
         .question-counter {
 
@@ -223,9 +189,7 @@
             padding: 8px 14px;
 
             border-radius: 20px;
-
         }
-
 
         .timer {
 
@@ -238,9 +202,7 @@
             border-radius: 20px;
 
             font-weight: bold;
-
         }
-
 
         .progress-container {
 
@@ -253,9 +215,7 @@
             overflow: hidden;
 
             margin-bottom: 25px;
-
         }
-
 
         .progress {
 
@@ -267,9 +227,20 @@
 
             transition:
                 width 0.3s ease;
-
         }
 
+        .stage-title {
+
+            text-align: center;
+
+            color: #198754;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
 
         .level-label {
 
@@ -278,9 +249,7 @@
             font-size: 14px;
 
             margin-bottom: 10px;
-
         }
-
 
         #question {
 
@@ -289,9 +258,7 @@
             line-height: 1.8;
 
             margin-bottom: 25px;
-
         }
-
 
         #options {
 
@@ -300,9 +267,7 @@
             flex-direction: column;
 
             gap: 12px;
-
         }
-
 
         .option {
 
@@ -325,18 +290,14 @@
             cursor: pointer;
 
             transition: 0.2s;
-
         }
-
 
         .option:hover {
 
             border-color: #198754;
 
             background: #f1faf5;
-
         }
-
 
         .result-card {
 
@@ -348,8 +309,8 @@
 
             margin-top: 20px;
 
+            text-align: center;
         }
-
 
         .result-score {
 
@@ -360,9 +321,7 @@
             font-weight: bold;
 
             margin: 15px 0;
-
         }
-
 
         .result-item {
 
@@ -372,82 +331,90 @@
 
         }
 
-
         .result-item:last-child {
 
             border-bottom: none;
-
         }
 
+        .success-box {
+
+            background: #e8f5ee;
+
+            color: #198754;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            margin: 20px 0;
+
+            font-weight: bold;
+
+            line-height: 1.8;
+        }
+
+        .fail-box {
+
+            background: #fff0f1;
+
+            color: #dc3545;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            margin: 20px 0;
+
+            font-weight: bold;
+
+            line-height: 1.8;
+        }
 
         .saving {
 
             margin-top: 20px;
 
             color: #777;
-
         }
-
 
         .success {
 
             color: #198754;
 
             font-weight: bold;
-
         }
-
-
-        .error {
-
-            color: #dc3545;
-
-            font-weight: bold;
-
-        }
-
 
         @media (max-width: 600px) {
 
             body {
 
                 padding: 10px;
-
             }
-
 
             .container {
 
                 padding: 20px;
 
                 margin: 10px auto;
-
             }
-
 
             #question {
 
                 font-size: 18px;
-
             }
-
 
             .top-bar {
 
                 flex-direction: column;
 
                 align-items: stretch;
-
             }
-
 
             .question-counter,
             .timer {
 
                 text-align: center;
-
             }
-
         }
 
     </style>
@@ -461,40 +428,37 @@
 <div class="container">
 
 
-    <!-- ========================= -->
-    <!-- START SCREEN -->
-    <!-- ========================= -->
+    <!-- ================================= -->
+    <!-- START -->
+    <!-- ================================= -->
 
     <div id="start">
-
 
         <h1>
             اختبار Excel
             للقطاع الطبي و RCM
         </h1>
 
-
         <div class="subtitle">
 
-            اختبار عملي لقياس مهارات
+            اختبار تدريجي لقياس مهارات
             Microsoft Excel في بيئة العمل الطبية
             وإدارة دورة الإيرادات RCM.
 
         </div>
 
-
         <div class="badges">
 
             <span class="badge">
-                15 سؤال
+                اختبار تمهيدي
             </span>
 
             <span class="badge">
-                30 ثانية لكل سؤال
+                10 أسئلة
             </span>
 
             <span class="badge">
-                مستوى متدرج
+                ثم اختبار نهائي 15 سؤال
             </span>
 
             <span class="badge">
@@ -503,7 +467,6 @@
 
         </div>
 
-
         <input
             type="text"
             id="name"
@@ -511,38 +474,37 @@
             autocomplete="name"
         >
 
-
         <button
             class="main-button"
             type="button"
-            onclick="startTest()"
+            onclick="startPreTest()"
         >
 
-            ابدأ الاختبار
+            ابدأ الاختبار التمهيدي
 
         </button>
-
 
     </div>
 
 
-    <!-- ========================= -->
-    <!-- TEST SCREEN -->
-    <!-- ========================= -->
+    <!-- ================================= -->
+    <!-- TEST -->
+    <!-- ================================= -->
 
     <div id="test">
 
+        <div class="stage-title" id="stageTitle">
+            الاختبار التمهيدي
+        </div>
 
         <div class="top-bar">
-
 
             <div
                 class="question-counter"
                 id="questionNumber"
             >
-                السؤال 1 من 15
+                السؤال 1
             </div>
-
 
             <div class="timer">
 
@@ -556,9 +518,7 @@
 
             </div>
 
-
         </div>
-
 
         <div class="progress-container">
 
@@ -569,77 +529,107 @@
 
         </div>
 
-
         <div
             class="level-label"
             id="levelLabel"
         >
-            المستوى: سهل
+            المستوى
         </div>
-
 
         <h2 id="question"></h2>
 
-
         <div id="options"></div>
-
 
     </div>
 
 
-    <!-- ========================= -->
-    <!-- RESULT SCREEN -->
-    <!-- ========================= -->
+    <!-- ================================= -->
+    <!-- PRE TEST RESULT -->
+    <!-- ================================= -->
 
-    <div id="result">
-
+    <div id="preResult">
 
         <h1>
-            انتهى الاختبار
+            نتيجة الاختبار التمهيدي
         </h1>
-
 
         <div class="result-card">
 
+            <div
+                id="preScore"
+                class="result-score"
+            ></div>
+
+            <div
+                id="prePercentage"
+                class="result-item"
+            ></div>
+
+        </div>
+
+        <div id="preMessage"></div>
+
+        <p
+            id="preSaving"
+            class="saving"
+        >
+            جاري حفظ نتيجة الاختبار التمهيدي...
+        </p>
+
+        <button
+            id="continueButton"
+            class="main-button"
+            style="display:none;"
+            onclick="startFinalTest()"
+        >
+
+            الانتقال إلى الاختبار النهائي
+
+        </button>
+
+    </div>
+
+
+    <!-- ================================= -->
+    <!-- FINAL RESULT -->
+    <!-- ================================= -->
+
+    <div id="result">
+
+        <h1>
+            انتهى الاختبار النهائي
+        </h1>
+
+        <div class="result-card">
 
             <div
                 id="score"
                 class="result-score"
-            >
-            </div>
-
+            ></div>
 
             <div
                 id="percentage"
                 class="result-item"
-            >
-            </div>
-
+            ></div>
 
             <div
                 id="level"
                 class="result-item"
-            >
-            </div>
-
+            ></div>
 
             <div
                 id="duration"
                 class="result-item"
-            >
-            </div>
-
+            ></div>
 
         </div>
-
 
         <p
             id="saving"
             class="saving"
         >
-            جاري حفظ النتيجة في النظام...
+            جاري حفظ النتيجة...
         </p>
-
 
     </div>
 
@@ -651,7 +641,7 @@
 
 
 /****************************************************
- * Google Apps Script Web App
+ * Google Apps Script
  ****************************************************/
 
 const GOOGLE_SCRIPT_URL =
@@ -659,23 +649,251 @@ const GOOGLE_SCRIPT_URL =
 
 
 /****************************************************
- * الأسئلة
- *
- * 1 - 3   سهل
- * 4 - 6   متوسط
- * 7 - 9   صعب
- * 10 - 12 متقدم
- * 13 - 15 محترف جدًا
+ * إعداد الاختبار
  ****************************************************/
 
-const questions = [
+const PRETEST_PASS_PERCENTAGE = 70;
+
+const QUESTION_TIME = 30;
 
 
-    /* ==========================================
-       المستوى الأول: سهل
-       الأسئلة 1 - 3
-       ========================================== */
+/****************************************************
+ * الأسئلة التمهيدية
+ ****************************************************/
 
+const preQuestions = [
+
+    {
+        level: "تمهيدي",
+
+        question:
+            "لديك قيمة المطالبات الطبية في الخلايا B2 إلى B20. ما الدالة المناسبة لحساب إجمالي المطالبات؟",
+
+        options: [
+
+            "=AVERAGE(B2:B20)",
+
+            "=SUM(B2:B20)",
+
+            "=COUNT(B2:B20)",
+
+            "=MAX(B2:B20)"
+
+        ],
+
+        answer: 1
+    },
+
+
+    {
+        level: "تمهيدي",
+
+        question:
+            "لديك قيم التحصيل في C2:C100. ما الدالة المناسبة لحساب متوسط التحصيل؟",
+
+        options: [
+
+            "=SUM(C2:C100)",
+
+            "=COUNT(C2:C100)",
+
+            "=AVERAGE(C2:C100)",
+
+            "=MAX(C2:C100)"
+
+        ],
+
+        answer: 2
+    },
+
+
+    {
+        level: "تمهيدي",
+
+        question:
+            "أي رمز تبدأ به المعادلة في Excel؟",
+
+        options: [
+
+            "+",
+
+            "#",
+
+            "=",
+
+            "$"
+
+        ],
+
+        answer: 2
+    },
+
+
+    {
+        level: "تمهيدي",
+
+        question:
+            "لديك Status في D2 وتريد إظهار «مقبول» إذا كانت الحالة Accepted وإلا «مرفوض».",
+
+        options: [
+
+            '=IF(D2="Accepted","مقبول","مرفوض")',
+
+            '=SUM(D2="Accepted")',
+
+            '=COUNT(D2="Accepted")',
+
+            '=AVERAGE(D2="Accepted")'
+
+        ],
+
+        answer: 0
+    },
+
+
+    {
+        level: "تمهيدي",
+
+        question:
+            "لديك عمود يحتوي على حالات المطالبات. تريد حساب عدد المطالبات التي حالتها Rejected. ما الدالة المناسبة؟",
+
+        options: [
+
+            "SUMIF",
+
+            "COUNTIF",
+
+            "AVERAGE",
+
+            "MAX"
+
+        ],
+
+        answer: 1
+    },
+
+
+    {
+        level: "تمهيدي",
+
+        question:
+            "ما الاختصار المستخدم لنسخ خلية في Excel؟",
+
+        options: [
+
+            "Ctrl + V",
+
+            "Ctrl + X",
+
+            "Ctrl + C",
+
+            "Ctrl + S"
+
+        ],
+
+        answer: 2
+    },
+
+
+    {
+        level: "تمهيدي",
+
+        question:
+            "لديك Claim Amount في B2 وPaid Amount في C2. ما المعادلة الصحيحة لحساب المتبقي؟",
+
+        options: [
+
+            "=B2+C2",
+
+            "=B2-C2",
+
+            "=C2-B2",
+
+            "=B2/C2"
+
+        ],
+
+        answer: 1
+    },
+
+
+    {
+        level: "تمهيدي",
+
+        question:
+            "أي أداة تستخدم لعرض الصفوف التي تحقق شرطًا معينًا دون حذف باقي البيانات؟",
+
+        options: [
+
+            "Filter",
+
+            "Delete",
+
+            "Merge",
+
+            "Format"
+
+        ],
+
+        answer: 0
+    },
+
+
+    {
+        level: "تمهيدي",
+
+        question:
+            "لديك قيمة Claim Amount في B2. تريد معرفة هل القيمة أكبر من 50,000. أي صيغة شرطية مناسبة؟",
+
+        options: [
+
+            '=IF(B2>50000,"أعلى","أقل أو يساوي")',
+
+            '=SUM(B2>50000)',
+
+            '=COUNT(B2>50000)',
+
+            '=AVERAGE(B2>50000)'
+
+        ],
+
+        answer: 0
+    },
+
+
+    {
+        level: "تمهيدي",
+
+        question:
+            "لديك جدول للمطالبات وتريد تلخيص إجمالي المطالبات حسب الطبيب والتخصص وشركة التأمين. ما الأداة الأنسب؟",
+
+        options: [
+
+            "WordArt",
+
+            "PivotTable",
+
+            "Spell Check",
+
+            "Page Break"
+
+        ],
+
+        answer: 1
+    }
+
+];
+
+
+/****************************************************
+ * الأسئلة النهائية
+ ****************************************************/
+
+const finalQuestions = [
+
+    /* ================================
+       سهل
+       ================================ */
 
     {
 
@@ -730,7 +948,7 @@ const questions = [
         level: "سهل",
 
         question:
-            "في ملف مطالبات طبية، الخلية B2 تحتوي على قيمة المطالبة، والخلية C2 تحتوي على قيمة التحصيل. تريد أن تظهر كلمة «تم التحصيل» إذا كان التحصيل أكبر من صفر، وإلا «لم يتم التحصيل». أي معادلة صحيحة؟",
+            "في ملف مطالبات طبية، الخلية B2 تحتوي على قيمة المطالبة، والخلية C2 تحتوي على قيمة التحصيل. تريد أن تظهر «تم التحصيل» إذا كان التحصيل أكبر من صفر، وإلا «لم يتم التحصيل». أي معادلة صحيحة؟",
 
         options: [
 
@@ -749,11 +967,9 @@ const questions = [
     },
 
 
-    /* ==========================================
-       المستوى الثاني: متوسط
-       الأسئلة 4 - 6
-       ========================================== */
-
+    /* ================================
+       متوسط
+       ================================ */
 
     {
 
@@ -784,7 +1000,7 @@ const questions = [
         level: "متوسط",
 
         question:
-            "لديك عمود Specialty في A2:A1000 وعمود Claim Amount في B2:B1000. تريد حساب إجمالي قيمة المطالبات الخاصة بتخصص «Cardiology». أي معادلة صحيحة؟",
+            "لديك عمود Specialty في A2:A1000 وعمود Claim Amount في B2:B1000. تريد حساب إجمالي قيمة المطالبات الخاصة بتخصص Cardiology. أي معادلة صحيحة؟",
 
         options: [
 
@@ -827,11 +1043,9 @@ const questions = [
     },
 
 
-    /* ==========================================
-       المستوى الثالث: صعب
-       الأسئلة 7 - 9
-       ========================================== */
-
+    /* ================================
+       صعب
+       ================================ */
 
     {
 
@@ -905,11 +1119,9 @@ const questions = [
     },
 
 
-    /* ==========================================
-       المستوى الرابع: متقدم
-       الأسئلة 10 - 12
-       ========================================== */
-
+    /* ================================
+       متقدم
+       ================================ */
 
     {
 
@@ -983,11 +1195,9 @@ const questions = [
     },
 
 
-    /* ==========================================
-       المستوى الخامس: محترف جدًا
-       الأسئلة 13 - 15
-       ========================================== */
-
+    /* ================================
+       محترف جدًا
+       ================================ */
 
     {
 
@@ -1018,7 +1228,7 @@ const questions = [
         level: "محترف جدًا",
 
         question:
-            "لديك جدول يحتوي على Doctor في A، وClaim Amount في B، وPaid Amount في C، وStatus في D. تريد تحديد الطبيب صاحب أعلى إجمالي قيمة مطالبات «مرفوضة». ما النهج الأكثر احترافية للتعامل مع هذا التحليل في Excel؟",
+            "لديك جدول يحتوي على Doctor في A، وClaim Amount في B، وPaid Amount في C، وStatus في D. تريد تحديد الطبيب صاحب أعلى إجمالي قيمة مطالبات «مرفوضة». ما النهج الأكثر احترافية؟",
 
         options: [
 
@@ -1042,13 +1252,13 @@ const questions = [
         level: "محترف جدًا",
 
         question:
-            "لديك جدول RCM يحتوي على: Patient ID, Doctor, Specialty, Insurance, Claim Amount, Paid Amount, Status, Date. تريد إنشاء تحليل شهري يحدد لكل تخصص: إجمالي المطالبات، إجمالي التحصيل، نسبة التحصيل، وعدد المطالبات المرفوضة، مع إمكانية التصفية حسب شركة التأمين والطبيب. ما الحل الأكثر احترافية وقابلية للتوسع؟",
+            "لديك جدول RCM يحتوي على Patient ID وDoctor وSpecialty وInsurance وClaim Amount وPaid Amount وStatus وDate. تريد إنشاء تحليل شهري يحدد لكل تخصص إجمالي المطالبات وإجمالي التحصيل ونسبة التحصيل وعدد المطالبات المرفوضة، مع إمكانية التصفية حسب شركة التأمين والطبيب. ما الحل الأكثر احترافية وقابلية للتوسع؟",
 
         options: [
 
             "كتابة SUM واحدة فقط على Claim Amount",
 
-            "استخدام PivotTable مع Calculated/Value fields وFilters أو Slicers لتحليل البيانات حسب التخصص والطبيب وشركة التأمين والشهر",
+            "استخدام PivotTable مع Value fields وFilters أو Slicers لتحليل البيانات حسب التخصص والطبيب وشركة التأمين والشهر",
 
             "نسخ البيانات إلى عدة Sheets يدويًا لكل تخصص",
 
@@ -1069,6 +1279,10 @@ const questions = [
 
 let currentQuestion = 0;
 
+let currentQuestions = [];
+
+let currentStage = "";
+
 let score = 0;
 
 let userName = "";
@@ -1077,23 +1291,20 @@ let startTime = null;
 
 let timerInterval = null;
 
-let timeLeft = 30;
+let timeLeft = QUESTION_TIME;
 
 
 /****************************************************
- * Start Test
+ * Start Pre-Test
  ****************************************************/
 
-function startTest() {
-
+function startPreTest() {
 
     const nameInput =
         document.getElementById("name");
 
-
     userName =
         nameInput.value.trim();
-
 
     if (!userName) {
 
@@ -1104,26 +1315,89 @@ function startTest() {
         nameInput.focus();
 
         return;
-
     }
 
+    currentStage =
+        "الاختبار التمهيدي";
+
+    currentQuestions =
+        preQuestions;
 
     currentQuestion = 0;
 
     score = 0;
 
-    startTime = new Date();
-
+    startTime =
+        new Date();
 
     document
         .getElementById("start")
-        .style.display = "none";
+        .style.display =
+        "none";
 
+    document
+        .getElementById("preResult")
+        .style.display =
+        "none";
+
+    document
+        .getElementById("result")
+        .style.display =
+        "none";
 
     document
         .getElementById("test")
-        .style.display = "block";
+        .style.display =
+        "block";
 
+    document
+        .getElementById("stageTitle")
+        .textContent =
+        "الاختبار التمهيدي";
+
+    showQuestion();
+
+}
+
+
+/****************************************************
+ * Start Final Test
+ ****************************************************/
+
+function startFinalTest() {
+
+    currentStage =
+        "الاختبار النهائي";
+
+    currentQuestions =
+        finalQuestions;
+
+    currentQuestion = 0;
+
+    score = 0;
+
+    startTime =
+        new Date();
+
+    document
+        .getElementById("preResult")
+        .style.display =
+        "none";
+
+    document
+        .getElementById("result")
+        .style.display =
+        "none";
+
+    document
+        .getElementById("test")
+        .style.display =
+        "block";
+
+    document
+        .getElementById("stageTitle")
+        .textContent =
+        "الاختبار النهائي";
 
     showQuestion();
 
@@ -1136,104 +1410,92 @@ function startTest() {
 
 function showQuestion() {
 
+    clearInterval(
+        timerInterval
+    );
 
-    clearInterval(timerInterval);
-
-
-    timeLeft = 30;
-
+    timeLeft =
+        QUESTION_TIME;
 
     updateTimer();
 
-
     const question =
-        questions[currentQuestion];
-
+        currentQuestions[currentQuestion];
 
     const questionNumber =
         currentQuestion + 1;
 
-
     document
         .getElementById("questionNumber")
         .textContent =
-        `السؤال ${questionNumber} من ${questions.length}`;
-
+        `السؤال ${questionNumber} من ${currentQuestions.length}`;
 
     document
         .getElementById("question")
         .textContent =
         question.question;
 
-
     document
         .getElementById("levelLabel")
         .textContent =
         `المستوى: ${question.level}`;
 
-
     const progress =
-        (questionNumber / questions.length) * 100;
-
+        (questionNumber /
+            currentQuestions.length) *
+        100;
 
     document
         .getElementById("progress")
         .style.width =
         `${progress}%`;
 
-
     const optionsContainer =
         document.getElementById("options");
 
-
-    optionsContainer.innerHTML = "";
-
+    optionsContainer.innerHTML =
+        "";
 
     question.options.forEach(
         function(option, index) {
 
-
             const button =
-                document.createElement("button");
+                document.createElement(
+                    "button"
+                );
 
+            button.type =
+                "button";
 
-            button.type = "button";
-
-
-            button.className = "option";
-
+            button.className =
+                "option";
 
             button.textContent =
                 option;
 
-
             button.onclick =
                 function() {
 
-                    selectAnswer(index);
+                    selectAnswer(
+                        index
+                    );
 
                 };
-
 
             optionsContainer.appendChild(
                 button
             );
 
-
         }
     );
-
 
     timerInterval =
         setInterval(
             function() {
 
-
                 timeLeft--;
 
-
                 updateTimer();
-
 
                 if (timeLeft <= 0) {
 
@@ -1241,11 +1503,9 @@ function showQuestion() {
                         timerInterval
                     );
 
-
                     nextQuestion();
 
                 }
-
 
             },
             1000
@@ -1255,11 +1515,10 @@ function showQuestion() {
 
 
 /****************************************************
- * Update Timer
+ * Timer
  ****************************************************/
 
 function updateTimer() {
-
 
     document
         .getElementById("timer")
@@ -1275,13 +1534,12 @@ function updateTimer() {
 
 function selectAnswer(index) {
 
-
-    clearInterval(timerInterval);
-
+    clearInterval(
+        timerInterval
+    );
 
     const question =
-        questions[currentQuestion];
-
+        currentQuestions[currentQuestion];
 
     if (
         index === question.answer
@@ -1290,7 +1548,6 @@ function selectAnswer(index) {
         score++;
 
     }
-
 
     nextQuestion();
 
@@ -1303,21 +1560,18 @@ function selectAnswer(index) {
 
 function nextQuestion() {
 
-
     currentQuestion++;
-
 
     if (
         currentQuestion >=
-        questions.length
+        currentQuestions.length
     ) {
 
-        finishTest();
+        finishStage();
 
         return;
 
     }
-
 
     showQuestion();
 
@@ -1325,48 +1579,184 @@ function nextQuestion() {
 
 
 /****************************************************
- * Finish Test
+ * Finish Current Stage
  ****************************************************/
 
-function finishTest() {
+function finishStage() {
 
-
-    clearInterval(timerInterval);
-
+    clearInterval(
+        timerInterval
+    );
 
     const endTime =
         new Date();
 
-
     const durationSeconds =
         Math.floor(
-            (endTime - startTime) / 1000
+            (endTime - startTime) /
+            1000
         );
-
 
     const minutes =
         Math.floor(
             durationSeconds / 60
         );
 
-
     const seconds =
         durationSeconds % 60;
-
 
     const duration =
         `${minutes} دقيقة و ${seconds} ثانية`;
 
-
     const total =
-        questions.length;
-
+        currentQuestions.length;
 
     const percentage =
         Math.round(
             (score / total) * 100
         );
 
+
+    document
+        .getElementById("test")
+        .style.display =
+        "none";
+
+
+    if (
+        currentStage ===
+        "الاختبار التمهيدي"
+    ) {
+
+        finishPreTest(
+            percentage,
+            total,
+            duration
+        );
+
+    }
+    else {
+
+        finishFinalTest(
+            percentage,
+            total,
+            duration
+        );
+
+    }
+
+}
+
+
+/****************************************************
+ * Finish Pre-Test
+ ****************************************************/
+
+function finishPreTest(
+    percentage,
+    total,
+    duration
+) {
+
+    document
+        .getElementById("preResult")
+        .style.display =
+        "block";
+
+    document
+        .getElementById("preScore")
+        .textContent =
+        `${score} / ${total}`;
+
+    document
+        .getElementById("prePercentage")
+        .textContent =
+        `النسبة: ${percentage}%`;
+
+    const message =
+        document.getElementById(
+            "preMessage"
+        );
+
+    const continueButton =
+        document.getElementById(
+            "continueButton"
+        );
+
+    if (
+        percentage >=
+        PRETEST_PASS_PERCENTAGE
+    ) {
+
+        message.className =
+            "success-box";
+
+        message.innerHTML =
+            `
+                🎉 مبروك ${userName}
+                <br>
+                لقد اجتزت الاختبار التمهيدي.
+                <br>
+                يمكنك الآن الانتقال إلى الاختبار النهائي.
+            `;
+
+        continueButton.style.display =
+            "block";
+
+    }
+    else {
+
+        message.className =
+            "fail-box";
+
+        message.innerHTML =
+            `
+                لم تجتز الاختبار التمهيدي.
+                <br>
+                الحد الأدنى للنجاح هو
+                ${PRETEST_PASS_PERCENTAGE}%.
+            `;
+
+        continueButton.style.display =
+            "none";
+
+    }
+
+
+    saveResultToGoogleSheet({
+
+        name:
+            userName,
+
+        stage:
+            "الاختبار التمهيدي",
+
+        score:
+            score,
+
+        total:
+            total,
+
+        percentage:
+            percentage,
+
+        duration:
+            duration
+
+    }, "pre");
+
+}
+
+
+/****************************************************
+ * Finish Final Test
+ ****************************************************/
+
+function finishFinalTest(
+    percentage,
+    total,
+    duration
+) {
 
     let level;
 
@@ -1404,13 +1794,9 @@ function finishTest() {
 
 
     document
-        .getElementById("test")
-        .style.display = "none";
-
-
-    document
         .getElementById("result")
-        .style.display = "block";
+        .style.display =
+        "block";
 
 
     document
@@ -1439,47 +1825,62 @@ function finishTest() {
 
     saveResultToGoogleSheet({
 
-        name: userName,
+        name:
+            userName,
 
-        score: score,
+        stage:
+            "الاختبار النهائي",
 
-        total: total,
+        score:
+            score,
 
-        percentage: percentage,
+        total:
+            total,
 
-        duration: duration
+        percentage:
+            percentage,
 
-    });
+        duration:
+            duration
+
+    }, "final");
 
 }
 
 
 /****************************************************
- * Save Result To Google Sheets
+ * Save Result
  ****************************************************/
 
-function saveResultToGoogleSheet(data) {
+function saveResultToGoogleSheet(
+    data,
+    type
+) {
+
+    const savingElement =
+        type === "pre"
+            ? document.getElementById(
+                "preSaving"
+            )
+            : document.getElementById(
+                "saving"
+            );
 
 
-    const saving =
-        document.getElementById("saving");
-
-
-    saving.textContent =
+    savingElement.textContent =
         "جاري حفظ النتيجة في Google Sheets...";
 
 
     const iframe =
-        document.createElement("iframe");
-
+        document.createElement(
+            "iframe"
+        );
 
     iframe.name =
         "googleSheetFrame";
 
-
     iframe.style.display =
         "none";
-
 
     document.body.appendChild(
         iframe
@@ -1487,19 +1888,18 @@ function saveResultToGoogleSheet(data) {
 
 
     const form =
-        document.createElement("form");
+        document.createElement(
+            "form"
+        );
 
-
-    form.method = "POST";
-
+    form.method =
+        "POST";
 
     form.action =
         GOOGLE_SCRIPT_URL;
 
-
     form.target =
         "googleSheetFrame";
-
 
     form.style.display =
         "none";
@@ -1509,6 +1909,13 @@ function saveResultToGoogleSheet(data) {
         form,
         "name",
         data.name
+    );
+
+
+    addFormField(
+        form,
+        "stage",
+        data.stage
     );
 
 
@@ -1551,20 +1958,15 @@ function saveResultToGoogleSheet(data) {
     setTimeout(
         function() {
 
-
-            saving.textContent =
+            savingElement.textContent =
                 "✓ تم حفظ النتيجة بنجاح في Google Sheets";
 
-
-            saving.className =
+            savingElement.className =
                 "saving success";
-
 
             form.remove();
 
-
             iframe.remove();
-
 
         },
         2000
@@ -1574,7 +1976,7 @@ function saveResultToGoogleSheet(data) {
 
 
 /****************************************************
- * Add Hidden Form Field
+ * Hidden Form Field
  ****************************************************/
 
 function addFormField(
@@ -1583,30 +1985,27 @@ function addFormField(
     value
 ) {
 
-
     const input =
-        document.createElement("input");
-
+        document.createElement(
+            "input"
+        );
 
     input.type =
         "hidden";
 
-
     input.name =
         name;
-
 
     input.value =
         value;
 
-
-    form.appendChild(input);
+    form.appendChild(
+        input
+    );
 
 }
 
-
 </script>
-
 
 </body>
 
