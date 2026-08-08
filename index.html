@@ -141,366 +141,889 @@ button:hover {
 
 
 <script>
+/****************************************************
+ * Excel Skills Test
+ * Arabic
+ * 15 Questions
+ * 30 Seconds Per Question
+ * Google Sheets Integration
+ ****************************************************/
+
+
+/****************************************************
+ * Google Apps Script Web App URL
+ ****************************************************/
+
+const GOOGLE_SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbyeVHqvW1EfRKCA7-nk1-OoWFBng9oDMDyvaabnMAr6TjpgnE4ggM9nahOhH-lWuUwy/exec";
+
+
+/****************************************************
+ * Questions
+ ****************************************************/
 
 const questions = [
 
     {
-        question: "Which function is used to calculate the average?",
+        question:
+            "أي دالة تستخدم لحساب مجموع مجموعة من الأرقام؟",
+
         options: [
-            "SUM",
             "AVERAGE",
+            "SUM",
             "COUNT",
             "MAX"
         ],
+
         answer: 1
     },
 
+
     {
-        question: "Which symbol is used to start a formula in Excel?",
+        question:
+            "ما الرمز الذي تبدأ به المعادلات في Excel؟",
+
         options: [
             "+",
             "#",
             "=",
             "$"
         ],
+
         answer: 2
     },
 
-    {
-        question: "Which function counts numbers?",
-        options: [
-            "COUNT",
-            "SUM",
-            "TEXT",
-            "IF"
-        ],
-        answer: 0
-    },
 
     {
-        question: "Which function returns the largest value?",
+        question:
+            "أي دالة تستخدم لحساب المتوسط الحسابي؟",
+
+        options: [
+            "SUM",
+            "AVERAGE",
+            "COUNT",
+            "MIN"
+        ],
+
+        answer: 1
+    },
+
+
+    {
+        question:
+            "أي دالة تُستخدم لإيجاد أكبر قيمة؟",
+
         options: [
             "MIN",
             "MAX",
             "LARGE",
             "HIGH"
         ],
+
         answer: 1
     },
 
-    {
-        question: "Which function is commonly used for logical conditions?",
-        options: [
-            "IF",
-            "SUM",
-            "ROUND",
-            "LEFT"
-        ],
-        answer: 0
-    },
 
     {
-        question: "Which shortcut saves an Excel workbook?",
+        question:
+            "أي دالة تُستخدم لتنفيذ شرط منطقي؟",
+
         options: [
-            "Ctrl + S",
-            "Ctrl + P",
+            "SUM",
+            "IF",
+            "COUNT",
+            "ROUND"
+        ],
+
+        answer: 1
+    },
+
+
+    {
+        question:
+            "ما اختصار حفظ ملف Excel؟",
+
+        options: [
             "Ctrl + C",
+            "Ctrl + V",
+            "Ctrl + S",
             "Ctrl + X"
         ],
-        answer: 0
+
+        answer: 2
     },
 
+
     {
-        question: "Which function searches for a value vertically?",
+        question:
+            "أي دالة تستخدم للبحث الرأسي في جدول؟",
+
         options: [
             "HLOOKUP",
             "VLOOKUP",
             "SUMIF",
             "COUNTIF"
         ],
+
         answer: 1
     },
 
+
     {
-        question: "Which function counts cells based on a condition?",
+        question:
+            "أي دالة تحسب عدد الخلايا التي تحقق شرطًا معينًا؟",
+
         options: [
             "COUNT",
             "COUNTIF",
             "COUNTA",
             "SUM"
         ],
+
         answer: 1
     },
 
+
     {
-        question: "What does Ctrl + C do?",
+        question:
+            "ما وظيفة الاختصار Ctrl + C؟",
+
         options: [
-            "Copy",
-            "Cut",
-            "Paste",
-            "Close"
+            "نسخ",
+            "لصق",
+            "قص",
+            "حفظ"
         ],
+
         answer: 0
     },
 
+
     {
-        question: "What does Ctrl + V do?",
+        question:
+            "ما وظيفة الاختصار Ctrl + V؟",
+
         options: [
-            "Copy",
-            "Paste",
-            "Cut",
-            "Save"
+            "نسخ",
+            "لصق",
+            "قص",
+            "حذف"
         ],
+
         answer: 1
     },
 
-    {
-        question: "Which function adds numbers?",
-        options: [
-            "SUM",
-            "ADD",
-            "TOTAL",
-            "PLUS"
-        ],
-        answer: 0
-    },
 
     {
-        question: "Which feature creates visual charts?",
-        options: [
-            "Charts",
-            "Filter",
-            "Sort",
-            "Freeze Panes"
-        ],
-        answer: 0
-    },
+        question:
+            "أي دالة تُستخدم لإرجاع تاريخ اليوم؟",
 
-    {
-        question: "Which feature removes duplicate records?",
-        options: [
-            "Remove Duplicates",
-            "Filter",
-            "Sort",
-            "Format Painter"
-        ],
-        answer: 0
-    },
-
-    {
-        question: "Which function returns today's date?",
         options: [
             "DATE()",
             "NOW()",
             "TODAY()",
             "DAY()"
         ],
+
         answer: 2
     },
 
+
     {
-        question: "Which tool is useful for summarizing large datasets?",
+        question:
+            "ما الأداة المناسبة لتلخيص وتحليل كمية كبيرة من البيانات؟",
+
         options: [
             "PivotTable",
             "WordArt",
             "Format Painter",
             "Page Layout"
         ],
+
+        answer: 0
+    },
+
+
+    {
+        question:
+            "ما الأداة التي تستخدم لإزالة البيانات المكررة؟",
+
+        options: [
+            "Sort",
+            "Filter",
+            "Remove Duplicates",
+            "Freeze Panes"
+        ],
+
+        answer: 2
+    },
+
+
+    {
+        question:
+            "ما وظيفة Filter في Excel؟",
+
+        options: [
+            "حذف البيانات",
+            "عرض البيانات التي تحقق شروطًا معينة",
+            "تغيير لون الخلايا",
+            "دمج الخلايا"
+        ],
+
+        answer: 1
+    },
+
+
+    {
+        question:
+            "أي أداة تستخدم لإنشاء رسوم بيانية للبيانات؟",
+
+        options: [
+            "Charts",
+            "Filter",
+            "Sort",
+            "Freeze Panes"
+        ],
+
         answer: 0
     }
 
 ];
 
 
+/****************************************************
+ * Variables
+ ****************************************************/
+
 let currentQuestion = 0;
+
 let score = 0;
-let timer;
-let timeLeft = 30;
+
 let userName = "";
 
+let startTime = null;
+
+let timerInterval = null;
+
+let timeLeft = 30;
+
+
+/****************************************************
+ * Start Test
+ ****************************************************/
 
 function startTest() {
 
-    userName = document
-        .getElementById("name")
-        .value
-        .trim();
+    const nameInput =
+        document.getElementById("name");
+
+
+    if (!nameInput) {
+
+        console.error(
+            "Element #name not found"
+        );
+
+        return;
+
+    }
+
+
+    userName =
+        nameInput.value.trim();
+
 
     if (!userName) {
 
-        alert("Please enter your name.");
+        alert(
+            "من فضلك اكتب اسمك أولاً"
+        );
+
+        nameInput.focus();
 
         return;
+
     }
 
-    document.getElementById("start").style.display = "none";
 
-    document.getElementById("test").style.display = "block";
+    // Reset test
+    currentQuestion = 0;
 
+    score = 0;
+
+    startTime = new Date();
+
+
+    // Hide start screen
+    const startScreen =
+        document.getElementById("start");
+
+
+    if (startScreen) {
+
+        startScreen.style.display =
+            "none";
+
+    }
+
+
+    // Show test
+    const testScreen =
+        document.getElementById("test");
+
+
+    if (testScreen) {
+
+        testScreen.style.display =
+            "block";
+
+    }
+
+
+    // Start first question
     showQuestion();
+
 }
 
+
+/****************************************************
+ * Show Question
+ ****************************************************/
 
 function showQuestion() {
 
-    clearInterval(timer);
+    clearInterval(timerInterval);
+
 
     timeLeft = 30;
 
-    document.getElementById("timer").innerText = timeLeft;
+    updateTimer();
 
-    const q = questions[currentQuestion];
 
-    document.getElementById("question").innerText =
-        `${currentQuestion + 1}. ${q.question}`;
+    const question =
+        questions[currentQuestion];
 
-    const options =
+
+    if (!question) {
+
+        finishTest();
+
+        return;
+
+    }
+
+
+    // Question text
+    const questionElement =
+        document.getElementById("question");
+
+
+    if (questionElement) {
+
+        questionElement.textContent =
+            `${currentQuestion + 1} من ${questions.length} - ${question.question}`;
+
+    }
+
+
+    // Options container
+    const optionsContainer =
         document.getElementById("options");
 
-    options.innerHTML = "";
 
-    q.options.forEach((option, index) => {
+    if (!optionsContainer) {
 
-        const button = document.createElement("button");
+        console.error(
+            "Element #options not found"
+        );
 
-        button.className = "option";
+        return;
 
-        button.innerText = option;
+    }
 
-        button.style.background = "white";
 
-        button.style.color = "#333";
+    optionsContainer.innerHTML = "";
 
-        button.style.border = "1px solid #ddd";
 
-        button.onclick = () => selectAnswer(index);
+    // Create options
+    question.options.forEach(
+        function(option, index) {
 
-        options.appendChild(button);
+            const button =
+                document.createElement("button");
 
-    });
 
-    timer = setInterval(() => {
+            button.type = "button";
 
-        timeLeft--;
 
-        document.getElementById("timer").innerText =
-            timeLeft;
+            button.className =
+                "option";
 
-        if (timeLeft <= 0) {
 
-            clearInterval(timer);
+            button.textContent =
+                option;
 
-            nextQuestion();
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    selectAnswer(index);
+
+                }
+            );
+
+
+            optionsContainer.appendChild(
+                button
+            );
 
         }
+    );
 
-    }, 1000);
+
+    // Start timer
+    timerInterval =
+        setInterval(
+            function() {
+
+                timeLeft--;
+
+                updateTimer();
+
+
+                if (timeLeft <= 0) {
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+
+                    nextQuestion();
+
+                }
+
+            },
+            1000
+        );
 
 }
 
 
+/****************************************************
+ * Update Timer
+ ****************************************************/
+
+function updateTimer() {
+
+    const timerElement =
+        document.getElementById("timer");
+
+
+    if (timerElement) {
+
+        timerElement.textContent =
+            timeLeft;
+
+    }
+
+}
+
+
+/****************************************************
+ * Select Answer
+ ****************************************************/
+
 function selectAnswer(index) {
 
-    clearInterval(timer);
+    clearInterval(timerInterval);
 
-    if (index === questions[currentQuestion].answer) {
+
+    const question =
+        questions[currentQuestion];
+
+
+    if (
+        question &&
+        index === question.answer
+    ) {
 
         score++;
 
     }
+
 
     nextQuestion();
 
 }
 
 
+/****************************************************
+ * Next Question
+ ****************************************************/
+
 function nextQuestion() {
 
     currentQuestion++;
 
-    if (currentQuestion >= questions.length) {
+
+    if (
+        currentQuestion >=
+        questions.length
+    ) {
 
         finishTest();
 
-    } else {
-
-        showQuestion();
+        return;
 
     }
 
+
+    showQuestion();
+
 }
 
+
+/****************************************************
+ * Finish Test
+ ****************************************************/
 
 function finishTest() {
 
-    clearInterval(timer);
+    clearInterval(timerInterval);
 
-    document.getElementById("test").style.display = "none";
 
-    document.getElementById("result").style.display = "block";
+    // End time
+    const endTime =
+        new Date();
 
-    const percentage =
-        Math.round((score / questions.length) * 100);
 
-    document.getElementById("score").innerText =
-        `Score: ${score} / ${questions.length}`;
+    // Calculate duration
+    let durationSeconds = 0;
 
-    document.getElementById("percentage").innerText =
-        `Percentage: ${percentage}%`;
 
-    let level;
+    if (startTime) {
 
-    if (percentage >= 90) {
-
-        level = "Excellent";
-
-    } else if (percentage >= 75) {
-
-        level = "Very Good";
-
-    } else if (percentage >= 60) {
-
-        level = "Good";
-
-    } else if (percentage >= 50) {
-
-        level = "Pass";
-
-    } else {
-
-        level = "Needs Improvement";
+        durationSeconds =
+            Math.floor(
+                (endTime - startTime) /
+                1000
+            );
 
     }
 
-    document.getElementById("level").innerText =
-        `Level: ${level}`;
+
+    const minutes =
+        Math.floor(
+            durationSeconds / 60
+        );
 
 
-    // Save result to Google Sheet
+    const seconds =
+        durationSeconds % 60;
 
-    google.script.run
-        .withSuccessHandler(function(response) {
 
-            console.log("Result saved:", response);
+    const duration =
+        `${minutes} دقيقة و ${seconds} ثانية`;
 
-        })
-        .withFailureHandler(function(error) {
 
-            console.error("Error:", error);
+    // Score
+    const total =
+        questions.length;
 
-        })
-        .saveResult({
 
-            name: userName,
+    const percentage =
+        Math.round(
+            (score / total) * 100
+        );
 
-            score: score,
 
-            total: questions.length
+    // Level
+    let level = "";
 
-        });
+
+    if (percentage >= 90) {
+
+        level = "ممتاز";
+
+    }
+    else if (percentage >= 75) {
+
+        level = "جيد جدًا";
+
+    }
+    else if (percentage >= 60) {
+
+        level = "جيد";
+
+    }
+    else if (percentage >= 50) {
+
+        level = "مقبول";
+
+    }
+    else {
+
+        level = "يحتاج إلى تحسين";
+
+    }
+
+
+    // Hide test
+    const testScreen =
+        document.getElementById("test");
+
+
+    if (testScreen) {
+
+        testScreen.style.display =
+            "none";
+
+    }
+
+
+    // Show result
+    const resultScreen =
+        document.getElementById("result");
+
+
+    if (resultScreen) {
+
+        resultScreen.style.display =
+            "block";
+
+    }
+
+
+    // Score
+    const scoreElement =
+        document.getElementById("score");
+
+
+    if (scoreElement) {
+
+        scoreElement.textContent =
+            `درجتك: ${score} من ${total}`;
+
+    }
+
+
+    // Percentage
+    const percentageElement =
+        document.getElementById(
+            "percentage"
+        );
+
+
+    if (percentageElement) {
+
+        percentageElement.textContent =
+            `النسبة: ${percentage}%`;
+
+    }
+
+
+    // Level
+    const levelElement =
+        document.getElementById("level");
+
+
+    if (levelElement) {
+
+        levelElement.textContent =
+            `التقييم: ${level}`;
+
+    }
+
+
+    // Save result
+    saveResultToGoogleSheet({
+
+        name: userName,
+
+        score: score,
+
+        total: total,
+
+        percentage: percentage,
+
+        duration: duration
+
+    });
 
 }
 
+
+/****************************************************
+ * Send Result To Google Sheets
+ ****************************************************/
+
+function saveResultToGoogleSheet(data) {
+
+    console.log(
+        "Sending result...",
+        data
+    );
+
+
+    /*
+     * Hidden iframe
+     *
+     * We use a form POST instead of fetch()
+     * to avoid CORS problems.
+     */
+
+
+    const iframe =
+        document.createElement(
+            "iframe"
+        );
+
+
+    iframe.name =
+        "googleSheetFrame";
+
+
+    iframe.style.display =
+        "none";
+
+
+    document.body.appendChild(
+        iframe
+    );
+
+
+    // Create form
+    const form =
+        document.createElement(
+            "form"
+        );
+
+
+    form.method =
+        "POST";
+
+
+    form.action =
+        GOOGLE_SCRIPT_URL;
+
+
+    form.target =
+        "googleSheetFrame";
+
+
+    form.style.display =
+        "none";
+
+
+    // Add fields
+    addFormField(
+        form,
+        "name",
+        data.name
+    );
+
+
+    addFormField(
+        form,
+        "score",
+        data.score
+    );
+
+
+    addFormField(
+        form,
+        "total",
+        data.total
+    );
+
+
+    addFormField(
+        form,
+        "percentage",
+        data.percentage
+    );
+
+
+    addFormField(
+        form,
+        "duration",
+        data.duration
+    );
+
+
+    // Add form to page
+    document.body.appendChild(
+        form
+    );
+
+
+    // Submit
+    form.submit();
+
+
+    console.log(
+        "Result submitted to Google Sheets"
+    );
+
+
+    // Remove temporary elements
+    setTimeout(
+        function() {
+
+            if (form) {
+
+                form.remove();
+
+            }
+
+
+            if (iframe) {
+
+                iframe.remove();
+
+            }
+
+        },
+        5000
+    );
+
+}
+
+
+/****************************************************
+ * Add Hidden Form Field
+ ****************************************************/
+
+function addFormField(
+    form,
+    name,
+    value
+) {
+
+    const input =
+        document.createElement(
+            "input"
+        );
+
+
+    input.type =
+        "hidden";
+
+
+    input.name =
+        name;
+
+
+    input.value =
+        value;
+
+
+    form.appendChild(
+        input
+    );
+
+}
 </script>
 
 </body>
