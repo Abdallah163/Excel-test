@@ -1,1 +1,2806 @@
-<!DOCTYPE html> <html lang="ar" dir="rtl"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title> اختبار Excel للقطاع الطبي و RCM </title> <style> * { box-sizing: border-box; } body { margin: 0; padding: 20px; font-family: Arial, Tahoma, sans-serif; background: linear-gradient( 135deg, #eef7f3, #f5f7fa ); color: #222; direction: rtl; } .container { max-width: 780px; margin: 30px auto; background: #fff; padding: 35px; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,.10); } h1 { text-align: center; color: #198754; margin-bottom: 10px; } .subtitle { text-align: center; color: #666; line-height: 1.8; margin-bottom: 25px; } .badges { text-align: center; margin-bottom: 25px; } .badge { display: inline-block; background: #e8f5ee; color: #198754; padding: 7px 13px; border-radius: 20px; font-size: 13px; margin: 3px; } .form-group { margin-bottom: 15px; } label { display: block; margin-bottom: 7px; font-weight: bold; } input { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 9px; font-size: 16px; direction: rtl; } input:focus { outline: none; border-color: #198754; box-shadow: 0 0 0 3px rgba(25,135,84,.10); } .phone-input { direction: ltr; text-align: left; } .main-button { width: 100%; padding: 15px; border: none; border-radius: 9px; background: #198754; color: white; font-size: 17px; font-weight: bold; cursor: pointer; margin-top: 8px; } .main-button:hover { background: #157347; } .main-button:disabled { background: #999; cursor: not-allowed; } .small-note { font-size: 13px; color: #777; line-height: 1.7; margin-top: 10px; } #test, #preResult, #result { display: none; } .stage-title { text-align: center; color: #198754; font-size: 20px; font-weight: bold; margin-bottom: 20px; } .top-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 20px; } .question-counter { background: #e8f5ee; color: #198754; padding: 8px 14px; border-radius: 20px; font-weight: bold; } .timer { background: #fff0f1; color: #dc3545; padding: 8px 14px; border-radius: 20px; font-weight: bold; } .progress-container { width: 100%; height: 8px; background: #e9ecef; border-radius: 10px; overflow: hidden; margin-bottom: 25px; } .progress { height: 100%; width: 0%; background: #198754; transition: width .3s ease; } .level-label { color: #777; font-size: 14px; margin-bottom: 10px; } #question { font-size: 21px; line-height: 1.9; margin-bottom: 25px; } #options { display: flex; flex-direction: column; gap: 12px; } .option { width: 100%; padding: 15px; background: #fff; border: 1px solid #ddd; border-radius: 10px; text-align: right; font-size: 16px; color: #222; cursor: pointer; transition: .2s; direction: rtl; } .option:hover { border-color: #198754; background: #f1faf5; } .option:disabled { cursor: not-allowed; } .result-card { background: #f7f9fa; border-radius: 15px; padding: 25px; margin-top: 20px; text-align: center; } .result-score { font-size: 40px; color: #198754; font-weight: bold; margin: 15px 0; } .result-item { padding: 13px; border-bottom: 1px solid #ddd; line-height: 1.7; } .result-item:last-child { border-bottom: none; } .success-box { background: #e8f5ee; color: #198754; padding: 20px; border-radius: 12px; margin: 20px 0; font-weight: bold; line-height: 1.9; text-align: center; } .fail-box { background: #fff0f1; color: #dc3545; padding: 20px; border-radius: 12px; margin: 20px 0; font-weight: bold; line-height: 1.9; text-align: center; } .saving { margin-top: 20px; text-align: center; color: #777; } .success { color: #198754; font-weight: bold; } .error-message { background: #fff0f1; color: #dc3545; padding: 12px; border-radius: 8px; margin-top: 15px; text-align: center; display: none; } .loading { text-align: center; padding: 20px; color: #198754; font-weight: bold; } .pdf-button { margin-top: 20px; } .warning { background: #fff8e1; color: #856404; padding: 15px; border-radius: 10px; margin-top: 20px; line-height: 1.8; font-size: 14px; } @media (max-width:600px) { body { padding: 10px; } .container { margin: 10px auto; padding: 20px; } #question { font-size: 18px; } .top-bar { flex-direction: column; align-items: stretch; } .question-counter, .timer { text-align: center; } } </style> </head> <body> <div class="container"> <!-- ================================================== START ================================================== --> <div id="start"> <h1> اختبار Excel للقطاع الطبي و RCM </h1> <div class="subtitle"> اختبار تدريجي لقياس مهارات Microsoft Excel في بيئة العمل الطبية وإدارة دورة الإيرادات RCM. </div> <div class="badges"> <span class="badge"> اختبار تمهيدي </span> <span class="badge"> 10 أسئلة </span> <span class="badge"> اختبار نهائي 15 سؤال </span> <span class="badge"> Medical & RCM </span> </div> <div class="form-group"> <label for="name"> الاسم بالكامل </label> <input type="text" id="name" placeholder="اكتب اسمك بالكامل" autocomplete="name" > </div> <div class="form-group"> <label for="phone"> رقم الهاتف </label> <input type="tel" id="phone" class="phone-input" placeholder="01012345678" maxlength="11" inputmode="numeric" autocomplete="tel" > </div> <div class="small-note"> يجب إدخال رقم هاتف مصري صحيح مكون من 11 رقمًا. <br> يستخدم رقم الهاتف لمنع إعادة الاختبار. </div> <div id="startError" class="error-message" ></div> <button id="startButton" class="main-button" type="button" onclick="startPreTest()" > ابدأ الاختبار التمهيدي </button> <div class="warning"> ⚠️ بمجرد بدء الاختبار، لا تغلق الصفحة أو تعيد تحميلها حتى لا تفقد نتيجة الاختبار. </div> </div> <!-- ================================================== TEST ================================================== --> <div id="test"> <div id="stageTitle" class="stage-title" > الاختبار التمهيدي </div> <div class="top-bar"> <div id="questionNumber" class="question-counter" > السؤال 1 </div> <div class="timer"> ⏱️ <span id="timer"> 30 </span> ثانية </div> </div> <div class="progress-container"> <div id="progress" class="progress" ></div> </div> <div id="levelLabel" class="level-label" > المستوى </div> <h2 id="question"></h2> <div id="options"></div> </div> <!-- ================================================== PRE TEST RESULT ================================================== --> <div id="preResult"> <h1> نتيجة الاختبار التمهيدي </h1> <div class="result-card"> <div id="preScore" class="result-score" > 0 / 10 </div> <div id="prePercentage" class="result-item" > </div> </div> <div id="preMessage"></div> <p id="preSaving" class="saving" > جاري حفظ النتيجة... </p> <button id="continueButton" class="main-button" style="display:none;" onclick="startFinalTest()" > الانتقال إلى الاختبار النهائي </button> </div> <!-- ================================================== FINAL RESULT ================================================== --> <div id="result"> <h1> النتيجة النهائية </h1> <div class="result-card"> <div id="score" class="result-score" > 0 / 15 </div> <div id="percentage" class="result-item" > </div> <div id="level" class="result-item" > </div> <div id="duration" class="result-item" > </div> </div> <p id="saving" class="saving" > جاري حفظ النتيجة... </p> <button id="pdfButton" class="main-button pdf-button" style="display:none;" onclick="openCertificate()" > 📄 عرض النتيجة وحفظها PDF </button> <div class="warning"> يمكنك الضغط على الزر أعلاه ثم اختيار <strong>Print / طباعة</strong> وبعدها <strong>Save as PDF</strong> لحفظ النتيجة كملف PDF. </div> </div> </div> <script> /* ================================================== GOOGLE APPS SCRIPT ================================================== */ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyXAoT2TM742x_lsBx4M-sQaVHReE6kMzCyLsuCZbUyJedW3rg4UcqMOpT-_Idle6eI/exec"; /* ================================================== SETTINGS ================================================== */ const PRETEST_PASS_PERCENTAGE = 70; const QUESTION_TIME = 30; /* ================================================== USER DATA ================================================== */ let userName = ""; let userPhone = ""; /* ================================================== TEST DATA ================================================== */ let currentQuestion = 0; let currentQuestions = []; let currentStage = ""; let score = 0; let startTime = null; let timerInterval = null; let timeLeft = QUESTION_TIME; /* ================================================== PRE TEST QUESTIONS ================================================== */ const preQuestions = [ { level:"تمهيدي", question: "لديك قيمة المطالبات الطبية في الخلايا B2 إلى B20. ما الدالة المناسبة لحساب إجمالي المطالبات؟", options:[ "=AVERAGE(B2:B20)", "=SUM(B2:B20)", "=COUNT(B2:B20)", "=MAX(B2:B20)" ], answer:1 }, { level:"تمهيدي", question: "لديك قيم التحصيل في C2:C100. ما الدالة المناسبة لحساب متوسط التحصيل؟", options:[ "=SUM(C2:C100)", "=COUNT(C2:C100)", "=AVERAGE(C2:C100)", "=MAX(C2:C100)" ], answer:2 }, { level:"تمهيدي", question: "أي رمز تبدأ به المعادلة في Excel؟", options:[ "+", "#", "=", "$" ], answer:2 }, { level:"تمهيدي", question: "لديك Status في D2 وتريد إظهار «مقبول» إذا كانت الحالة Accepted وإلا «مرفوض».", options:[ '=IF(D2="Accepted","مقبول","مرفوض")', '=SUM(D2="Accepted")', '=COUNT(D2="Accepted")', '=AVERAGE(D2="Accepted")' ], answer:0 }, { level:"تمهيدي", question: "لديك عمود يحتوي على حالات المطالبات. تريد حساب عدد المطالبات التي حالتها Rejected. ما الدالة المناسبة؟", options:[ "SUMIF", "COUNTIF", "AVERAGE", "MAX" ], answer:1 }, { level:"تمهيدي", question: "ما الاختصار المستخدم لنسخ خلية في Excel؟", options:[ "Ctrl + V", "Ctrl + X", "Ctrl + C", "Ctrl + S" ], answer:2 }, { level:"تمهيدي", question: "لديك Claim Amount في B2 وPaid Amount في C2. ما المعادلة الصحيحة لحساب المتبقي؟", options:[ "=B2+C2", "=B2-C2", "=C2-B2", "=B2/C2" ], answer:1 }, { level:"تمهيدي", question: "أي أداة تستخدم لعرض الصفوف التي تحقق شرطًا معينًا دون حذف باقي البيانات؟", options:[ "Filter", "Delete", "Merge", "Format" ], answer:0 }, { level:"تمهيدي", question: "لديك قيمة Claim Amount في B2. تريد معرفة هل القيمة أكبر من 50,000. أي صيغة شرطية مناسبة؟", options:[ '=IF(B2>50000,"أعلى","أقل أو يساوي")', '=SUM(B2>50000)', '=COUNT(B2>50000)', '=AVERAGE(B2>50000)' ], answer:0 }, { level:"تمهيدي", question: "لديك جدول للمطالبات وتريد تلخيص إجمالي المطالبات حسب الطبيب والتخصص وشركة التأمين. ما الأداة الأنسب؟", options:[ "WordArt", "PivotTable", "Spell Check", "Page Break" ], answer:1 } ]; /* ================================================== FINAL QUESTIONS ================================================== */ const finalQuestions = [ /* ---------- سهل ---------- */ { level:"سهل", question: "لديك جدول يحتوي على قيمة 20 مطالبة طبية في الخلايا من B2 إلى B21. ما المعادلة الصحيحة لحساب إجمالي قيمة المطالبات؟", options:[ "=AVERAGE(B2:B21)", "=SUM(B2:B21)", "=COUNT(B2:B21)", "=MAX(B2:B21)" ], answer:1 }, { level:"سهل", question: "لديك قيم المطالبات الطبية في الخلايا C2:C101. ما الدالة المناسبة لحساب متوسط قيمة المطالبات؟", options:[ "=SUM(C2:C101)", "=COUNT(C2:C101)", "=AVERAGE(C2:C101)", "=MAX(C2:C101)" ], answer:2 }, { level:"سهل", question: "في ملف مطالبات طبية، الخلية B2 تحتوي على قيمة المطالبة، والخلية C2 تحتوي على قيمة التحصيل. تريد أن تظهر «تم التحصيل» إذا كان التحصيل أكبر من صفر، وإلا «لم يتم التحصيل». أي معادلة صحيحة؟", options:[ '=IF(C2>0,"تم التحصيل","لم يتم التحصيل")', '=IF(B2>0,"تم التحصيل","لم يتم التحصيل")', '=SUM(C2>0,"تم التحصيل")', '=COUNTIF(C2>0,"تم التحصيل")' ], answer:0 }, /* ---------- متوسط ---------- */ { level:"متوسط", question: "لديك عمود Status في الخلايا D2:D1000 يحتوي على حالات المطالبات. تريد حساب عدد المطالبات التي حالتها «مرفوضة». أي معادلة صحيحة؟", options:[ '=COUNT(D2:D1000,"مرفوضة")', '=COUNTIF(D2:D1000,"مرفوضة")', '=SUMIF(D2:D1000,"مرفوضة")', '=IF(D2:D1000="مرفوضة")' ], answer:1 }, { level:"متوسط", question: "لديك عمود Specialty في A2:A1000 وعمود Claim Amount في B2:B1000. تريد حساب إجمالي قيمة المطالبات الخاصة بتخصص Cardiology. أي معادلة صحيحة؟", options:[ '=SUMIF(A2:A1000,"Cardiology",B2:B1000)', '=COUNTIF(A2:A1000,"Cardiology")', '=SUM(B2:B1000,"Cardiology")', '=AVERAGEIF(A2:A1000,"Cardiology")' ], answer:0 }, { level:"متوسط", question: "لديك قيم المطالبات في B2:B1000. تريد معرفة عدد المطالبات التي تزيد قيمتها عن 50,000. ما المعادلة الصحيحة؟", options:[ '=COUNT(B2:B1000,">50000")', '=COUNTIF(B2:B1000,">50000")', '=SUMIF(B2:B1000,">50000")', '=IF(B2:B1000>50000)' ], answer:1 }, /* ---------- صعب ---------- */ { level:"صعب", question: "لديك Specialty في العمود A، وInsurance Company في العمود B، وClaim Amount في العمود C. تريد حساب إجمالي المطالبات الخاصة بتخصص Cardiology لدى شركة التأمين AXA. ما المعادلة الأنسب؟", options:[ '=SUMIF(A:A,"Cardiology",C:C)', '=SUMIFS(C:C,A:A,"Cardiology",B:B,"AXA")', '=COUNTIFS(A:A,"Cardiology",B:B,"AXA")', '=SUM(C:C)' ], answer:1 }, { level:"صعب", question: "لديك Doctor ID في الخلية A2، وجدول آخر يحتوي على Doctor ID في العمود H واسم الطبيب في العمود I. تريد إرجاع اسم الطبيب باستخدام XLOOKUP. أي معادلة صحيحة؟", options:[ '=XLOOKUP(A2,H:H,I:I)', '=XLOOKUP(H:H,I:I,A2)', '=VLOOKUP(I:I,A2:H:H,1,FALSE)', '=MATCH(A2,H:H,I:I)' ], answer:0 }, { level:"صعب", question: "تستخدم XLOOKUP للبحث عن اسم طبيب، ولكن بعض Doctor IDs غير موجودة في جدول الأطباء. تريد عرض «غير موجود» بدل ظهور خطأ. أي معادلة صحيحة؟", options:[ '=XLOOKUP(A2,H:H,I:I)', '=IFERROR(XLOOKUP(A2,H:H,I:I),"غير موجود")', '=IF(XLOOKUP(A2,H:H,I:I),"غير موجود")', '=COUNTIF(XLOOKUP(A2,H:H,I:I),"غير موجود")' ], answer:1 }, /* ---------- متقدم ---------- */ { level:"متقدم", question: "لديك إجمالي التحصيل في B2، والهدف الشهري ثابت في الخلية $F$1. تريد نسخ المعادلة لأسفل لحساب نسبة تحقيق الهدف لكل موظف. أي معادلة صحيحة؟", options:[ '=B2/F1', '=B2/$F$1', '=$B$2/F1', '=B2/$F1' ], answer:1 }, { level:"متقدم", question: "لديك جدول يحتوي على Doctor ID في العمود A واسم الطبيب في B وتخصصه في C. لديك Doctor ID في الخلية F2. تريد استخراج التخصص باستخدام INDEX و MATCH. أي معادلة صحيحة؟", options:[ '=INDEX(C:C,MATCH(F2,A:A,0))', '=MATCH(F2,C:C,0)', '=INDEX(A:A,MATCH(F2,C:C,0))', '=INDEX(C:C,F2)' ], answer:0 }, { level:"متقدم", question: "لديك Claim Amount في B2 وPaid Amount في C2. تريد حساب نسبة التحصيل، ولكن إذا كانت قيمة المطالبة صفرًا فلا تريد ظهور #DIV/0!. أي معادلة هي الأفضل؟", options:[ '=C2/B2', '=IFERROR(C2/B2,0)', '=COUNTIF(C2/B2,0)', '=IF(C2/B2,"Error",0)' ], answer:1 }, /* ---------- محترف جدًا ---------- */ { level:"محترف جدًا", question: "لديك جدول RCM يحتوي على Department في العمود A، Status في العمود B، وClaim Amount في العمود C. تريد حساب إجمالي قيمة المطالبات المرفوضة لقسم Cardiology فقط. أي معادلة هي الأنسب؟", options:[ '=SUMIF(A:A,"Cardiology",C:C)', '=SUMIFS(C:C,A:A,"Cardiology",B:B,"Rejected")', '=COUNTIFS(A:A,"Cardiology",B:B,"Rejected")', '=SUMIFS(A:A,C:C,"Rejected",B:B,"Cardiology")' ], answer:1 }, { level:"محترف جدًا", question: "لديك جدول يحتوي على Doctor في A، وClaim Amount في B، وPaid Amount في C، وStatus في D. تريد تحديد الطبيب صاحب أعلى إجمالي قيمة مطالبات «مرفوضة». ما النهج الأكثر احترافية؟", options:[ "استخدام SUMIFS لتجميع المطالبات المرفوضة حسب الطبيب ثم استخراج القيمة الأكبر", "استخدام AVERAGE على جميع المطالبات", "استخدام COUNT على عمود Doctor فقط", "استخدام SUM على جميع المطالبات دون فلترة" ], answer:0 }, { level:"محترف جدًا", question: "لديك جدول RCM يحتوي على Patient ID وDoctor وSpecialty وInsurance وClaim Amount وPaid Amount وStatus وDate. تريد إنشاء تحليل شهري يحدد لكل تخصص إجمالي المطالبات وإجمالي التحصيل ونسبة التحصيل وعدد المطالبات المرفوضة، مع إمكانية التصفية حسب شركة التأمين والطبيب. ما الحل الأكثر احترافية وقابلية للتوسع؟", options:[ "كتابة SUM واحدة فقط على Claim Amount", "استخدام PivotTable مع Value fields وFilters أو Slicers لتحليل البيانات حسب التخصص والطبيب وشركة التأمين والشهر", "نسخ البيانات إلى عدة Sheets يدويًا لكل تخصص", "استخدام COUNT فقط على Patient ID" ], answer:1 } ]; /* ================================================== START PRE TEST ================================================== */ function startPreTest() { const nameInput = document.getElementById("name"); const phoneInput = document.getElementById("phone"); const errorBox = document.getElementById("startError"); userName = nameInput.value.trim(); userPhone = phoneInput.value .replace(/\D/g,""); errorBox.style.display = "none"; if (!userName) { showStartError( "من فضلك اكتب اسمك بالكامل." ); nameInput.focus(); return; } if ( !/^01[0125][0-9]{8}$/.test( userPhone ) ) { showStartError( "رقم الهاتف يجب أن يكون رقمًا مصريًا صحيحًا مكونًا من 11 رقمًا، مثل 01012345678." ); phoneInput.focus(); return; } const button = document.getElementById( "startButton" ); button.disabled = true; button.textContent = "جاري التحقق من رقم الهاتف..."; checkPhoneBeforeStart( function(success) { button.disabled = false; button.textContent = "ابدأ الاختبار التمهيدي"; if (success) { beginPreTest(); } } ); } /* ================================================== SHOW START ERROR ================================================== */ function showStartError(message) { const box = document.getElementById( "startError" ); box.textContent = message; box.style.display = "block"; } /* ================================================== CHECK PHONE ================================================== */ function checkPhoneBeforeStart( callback ) { const callbackName = "phoneCheck_" + Date.now(); window[callbackName] = function(response) { try { if ( response && response.exists ) { showStartError( "هذا الرقم سبق له دخول الاختبار، ولا يمكن إعادة الاختبار باستخدام نفس رقم الهاتف." ); callback(false); return; } if ( !response || response.success !== true ) { showStartError( "حدث خطأ أثناء التحقق من رقم الهاتف. حاول مرة أخرى." ); callback(false); return; } callback(true); } finally { delete window[ callbackName ]; } }; const script = document.createElement( "script" ); script.src = GOOGLE_SCRIPT_URL + "?action=checkPhone" + "&phone=" + encodeURIComponent( userPhone ) + "&callback=" + callbackName; script.onerror = function() { showStartError( "تعذر الاتصال بالخادم. تأكد من اتصال الإنترنت وحاول مرة أخرى." ); delete window[ callbackName ]; callback(false); script.remove(); }; document.body.appendChild( script ); } /* ================================================== BEGIN PRE TEST ================================================== */ function beginPreTest() { currentStage = "الاختبار التمهيدي"; currentQuestions = preQuestions; currentQuestion = 0; score = 0; startTime = new Date(); document .getElementById("start") .style.display = "none"; document .getElementById("preResult") .style.display = "none"; document .getElementById("result") .style.display = "none"; document .getElementById("test") .style.display = "block"; document .getElementById("stageTitle") .textContent = "الاختبار التمهيدي"; showQuestion(); } /* ================================================== START FINAL TEST ================================================== */ function startFinalTest() { currentStage = "الاختبار النهائي"; currentQuestions = finalQuestions; currentQuestion = 0; score = 0; startTime = new Date(); document .getElementById("preResult") .style.display = "none"; document .getElementById("result") .style.display = "none"; document .getElementById("test") .style.display = "block"; document .getElementById("stageTitle") .textContent = "الاختبار النهائي"; showQuestion(); } /* ================================================== SHOW QUESTION ================================================== */ function showQuestion() { clearInterval( timerInterval ); timeLeft = QUESTION_TIME; updateTimer(); const question = currentQuestions[ currentQuestion ]; const number = currentQuestion + 1; document .getElementById( "questionNumber" ) .textContent = `السؤال ${number} من ${currentQuestions.length}`; document .getElementById( "question" ) .textContent = question.question; document .getElementById( "levelLabel" ) .textContent = `المستوى: ${question.level}`; const progress = ( number / currentQuestions.length ) * 100; document .getElementById( "progress" ) .style.width = `${progress}%`; const options = document.getElementById( "options" ); options.innerHTML = ""; question.options.forEach( function(option,index) { const button = document.createElement( "button" ); button.type = "button"; button.className = "option"; button.textContent = option; button.onclick = function() { selectAnswer( index ); }; options.appendChild( button ); } ); timerInterval = setInterval( function() { timeLeft--; updateTimer(); if ( timeLeft <= 0 ) { clearInterval( timerInterval ); nextQuestion(); } }, 1000 ); } /* ================================================== TIMER ================================================== */ function updateTimer() { document .getElementById( "timer" ) .textContent = timeLeft; } /* ================================================== SELECT ANSWER ================================================== */ function selectAnswer(index) { clearInterval( timerInterval ); const question = currentQuestions[ currentQuestion ]; if ( index === question.answer ) { score++; } nextQuestion(); } /* ================================================== NEXT QUESTION ================================================== */ function nextQuestion() { currentQuestion++; if ( currentQuestion >= currentQuestions.length ) { finishStage(); return; } showQuestion(); } /* ================================================== FINISH STAGE ================================================== */ function finishStage() { clearInterval( timerInterval ); const endTime = new Date(); const durationSeconds = Math.floor( ( endTime - startTime ) / 1000 ); const minutes = Math.floor( durationSeconds / 60 ); const seconds = durationSeconds % 60; const duration = `${minutes} دقيقة و ${seconds} ثانية`; const total = currentQuestions.length; const percentage = Math.round( ( score / total ) * 100 ); document .getElementById("test") .style.display = "none"; if ( currentStage === "الاختبار التمهيدي" ) { finishPreTest( percentage, total, duration ); } else { finishFinalTest( percentage, total, duration ); } } /* ================================================== FINISH PRE TEST ================================================== */ function finishPreTest( percentage, total, duration ) { document .getElementById( "preResult" ) .style.display = "block"; document .getElementById( "preScore" ) .textContent = `${score} / ${total}`; document .getElementById( "prePercentage" ) .textContent = `النسبة: ${percentage}%`; const message = document.getElementById( "preMessage" ); const continueButton = document.getElementById( "continueButton" ); if ( percentage >= PRETEST_PASS_PERCENTAGE ) { message.className = "success-box"; message.innerHTML = ` 🎉 مبروك ${escapeHtml(userName)} <br><br> لقد اجتزت الاختبار التمهيدي بنجاح. <br> درجتك: ${score}/${total} <br> النسبة: ${percentage}% <br><br> يمكنك الآن الانتقال إلى الاختبار النهائي. `; continueButton.style.display = "block"; } else { message.className = "fail-box"; message.innerHTML = ` لم تجتز الاختبار التمهيدي. <br><br> درجتك: ${score}/${total} <br> النسبة: ${percentage}% <br> الحد الأدنى للنجاح: ${PRETEST_PASS_PERCENTAGE}% `; continueButton.style.display = "none"; } saveResultToGoogleSheet({ name: userName, phone: userPhone, stage: "الاختبار التمهيدي", score: score, total: total, percentage: percentage, duration: duration }); } /* ================================================== FINISH FINAL TEST ================================================== */ function finishFinalTest( percentage, total, duration ) { let level; if ( percentage >= 90 ) { level = "Excel Advanced / Professional"; } else if ( percentage >= 75 ) { level = "Excel Intermediate / Advanced"; } else if ( percentage >= 60 ) { level = "Excel Intermediate"; } else if ( percentage >= 50 ) { level = "Excel Basic"; } else { level = "Needs Improvement"; } document .getElementById( "result" ) .style.display = "block"; document .getElementById( "score" ) .textContent = `${score} / ${total}`; document .getElementById( "percentage" ) .textContent = `النسبة: ${percentage}%`; document .getElementById( "level" ) .textContent = `التقييم: ${level}`; document .getElementById( "duration" ) .textContent = `مدة الاختبار: ${duration}`; document .getElementById( "pdfButton" ) .style.display = "block"; saveResultToGoogleSheet({ name: userName, phone: userPhone, stage: "الاختبار النهائي", score: score, total: total, percentage: percentage, duration: duration }); } /* ================================================== SAVE RESULT ================================================== */ function saveResultToGoogleSheet( data ) { const savingElement = data.stage === "الاختبار التمهيدي" ? document.getElementById( "preSaving" ) : document.getElementById( "saving" ); savingElement.textContent = "جاري حفظ النتيجة في Google Sheets..."; const iframe = document.createElement( "iframe" ); iframe.name = "googleSheetFrame_" + Date.now(); iframe.style.display = "none"; document.body.appendChild( iframe ); const form = document.createElement( "form" ); form.method = "POST"; form.action = GOOGLE_SCRIPT_URL; form.target = iframe.name; form.style.display = "none"; addFormField( form, "name", data.name ); addFormField( form, "phone", data.phone ); addFormField( form, "stage", data.stage ); addFormField( form, "score", data.score ); addFormField( form, "total", data.total ); addFormField( form, "percentage", data.percentage ); addFormField( form, "duration", data.duration ); document.body.appendChild( form ); form.submit(); setTimeout( function() { savingElement.textContent = "✓ تم حفظ النتيجة في Google Sheets"; savingElement.className = "saving success"; form.remove(); iframe.remove(); }, 2000 ); } /* ================================================== FORM FIELD ================================================== */ function addFormField( form, name, value ) { const input = document.createElement( "input" ); input.type = "hidden"; input.name = name; input.value = value; form.appendChild( input ); } /* ================================================== OPEN PDF ================================================== */ function openCertificate() { if (!userPhone) { alert( "لم يتم العثور على رقم الهاتف." ); return; } const url = GOOGLE_SCRIPT_URL + "?action=certificate" + "&phone=" + encodeURIComponent( userPhone ); window.open( url, "_blank" ); } /* ================================================== ESCAPE HTML ================================================== */ function escapeHtml( value ) { return String(value) .replace( /&/g, "&amp;" ) .replace( /</g, "&lt;" ) .replace( />/g, "&gt;" ) .replace( /"/g, "&quot;" ) .replace( /'/g, "&#039;" ); } /* ================================================== PHONE INPUT ================================================== */ document .getElementById("phone") .addEventListener( "input", function() { this.value = this.value .replace( /\D/g, "" ) .substring( 0, 11 ); } ); /* ================================================== ENTER KEY ================================================== */ document .getElementById("phone") .addEventListener( "keydown", function(event) { if ( event.key === "Enter" ) { startPreTest(); } } ); </script> </body> </html>
+<!DOCTYPE html>
+
+<html
+lang="ar"
+dir="rtl"
+>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1"
+>
+
+<title>
+اختبار Excel الطبي و RCM
+</title>
+
+
+<style>
+
+* {
+
+box-sizing:
+border-box;
+
+}
+
+
+body {
+
+margin:0;
+
+padding:20px;
+
+font-family:
+Arial,
+Tahoma,
+sans-serif;
+
+background:
+linear-gradient(
+135deg,
+#eef7f3,
+#f5f7fa
+);
+
+color:#222;
+
+}
+
+
+.container {
+
+max-width:780px;
+
+margin:30px auto;
+
+background:white;
+
+padding:35px;
+
+border-radius:20px;
+
+box-shadow:
+0 8px 30px
+rgba(0,0,0,.10);
+
+}
+
+
+h1 {
+
+text-align:center;
+
+color:#198754;
+
+margin-bottom:10px;
+
+}
+
+
+.subtitle {
+
+text-align:center;
+
+color:#666;
+
+line-height:1.8;
+
+margin-bottom:25px;
+
+}
+
+
+.badges {
+
+text-align:center;
+
+margin-bottom:25px;
+
+}
+
+
+.badge {
+
+display:inline-block;
+
+background:#e8f5ee;
+
+color:#198754;
+
+padding:7px 13px;
+
+border-radius:20px;
+
+font-size:13px;
+
+margin:3px;
+
+}
+
+
+.form-group {
+
+margin-bottom:15px;
+
+}
+
+
+label {
+
+display:block;
+
+margin-bottom:7px;
+
+font-weight:bold;
+
+}
+
+
+input {
+
+width:100%;
+
+padding:15px;
+
+border:
+1px solid #ddd;
+
+border-radius:9px;
+
+font-size:16px;
+
+}
+
+
+input:focus {
+
+outline:none;
+
+border-color:#198754;
+
+box-shadow:
+0 0 0 3px
+rgba(25,135,84,.10);
+
+}
+
+
+.phone-input {
+
+direction:ltr;
+
+text-align:left;
+
+}
+
+
+.main-button {
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:9px;
+
+background:#198754;
+
+color:white;
+
+font-size:17px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+margin-top:8px;
+
+}
+
+
+.main-button:hover {
+
+background:#157347;
+
+}
+
+
+.main-button:disabled {
+
+background:#999;
+
+cursor:not-allowed;
+
+}
+
+
+.small-note {
+
+font-size:13px;
+
+color:#777;
+
+line-height:1.7;
+
+margin-top:10px;
+
+}
+
+
+#test,
+#preResult,
+#result {
+
+display:none;
+
+}
+
+
+.stage-title {
+
+text-align:center;
+
+color:#198754;
+
+font-size:20px;
+
+font-weight:bold;
+
+margin-bottom:20px;
+
+}
+
+
+.top-bar {
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:10px;
+
+margin-bottom:20px;
+
+}
+
+
+.question-counter {
+
+background:#e8f5ee;
+
+color:#198754;
+
+padding:8px 14px;
+
+border-radius:20px;
+
+font-weight:bold;
+
+}
+
+
+.timer {
+
+background:#fff0f1;
+
+color:#dc3545;
+
+padding:8px 14px;
+
+border-radius:20px;
+
+font-weight:bold;
+
+}
+
+
+.progress-container {
+
+width:100%;
+
+height:8px;
+
+background:#e9ecef;
+
+border-radius:10px;
+
+overflow:hidden;
+
+margin-bottom:25px;
+
+}
+
+
+.progress {
+
+height:100%;
+
+width:0%;
+
+background:#198754;
+
+transition:
+width .3s ease;
+
+}
+
+
+.level-label {
+
+color:#777;
+
+font-size:14px;
+
+margin-bottom:10px;
+
+}
+
+
+#question {
+
+font-size:21px;
+
+line-height:1.9;
+
+margin-bottom:25px;
+
+}
+
+
+#options {
+
+display:flex;
+
+flex-direction:column;
+
+gap:12px;
+
+}
+
+
+.option {
+
+width:100%;
+
+padding:15px;
+
+background:white;
+
+border:
+1px solid #ddd;
+
+border-radius:10px;
+
+text-align:right;
+
+font-size:16px;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+
+.option:hover {
+
+border-color:#198754;
+
+background:#f1faf5;
+
+}
+
+
+.result-card {
+
+background:#f7f9fa;
+
+border-radius:15px;
+
+padding:25px;
+
+margin-top:20px;
+
+text-align:center;
+
+}
+
+
+.result-score {
+
+font-size:40px;
+
+color:#198754;
+
+font-weight:bold;
+
+margin:15px 0;
+
+}
+
+
+.result-item {
+
+padding:13px;
+
+border-bottom:
+1px solid #ddd;
+
+line-height:1.7;
+
+}
+
+
+.success-box {
+
+background:#e8f5ee;
+
+color:#198754;
+
+padding:20px;
+
+border-radius:12px;
+
+margin:20px 0;
+
+font-weight:bold;
+
+line-height:1.9;
+
+text-align:center;
+
+}
+
+
+.fail-box {
+
+background:#fff0f1;
+
+color:#dc3545;
+
+padding:20px;
+
+border-radius:12px;
+
+margin:20px 0;
+
+font-weight:bold;
+
+line-height:1.9;
+
+text-align:center;
+
+}
+
+
+.saving {
+
+margin-top:20px;
+
+text-align:center;
+
+color:#777;
+
+}
+
+
+.success {
+
+color:#198754;
+
+font-weight:bold;
+
+}
+
+
+.error-message {
+
+background:#fff0f1;
+
+color:#dc3545;
+
+padding:12px;
+
+border-radius:8px;
+
+margin-top:15px;
+
+text-align:center;
+
+display:none;
+
+}
+
+
+.warning {
+
+background:#fff8e1;
+
+color:#856404;
+
+padding:15px;
+
+border-radius:10px;
+
+margin-top:20px;
+
+line-height:1.8;
+
+font-size:14px;
+
+}
+
+
+@media(max-width:600px) {
+
+body {
+
+padding:10px;
+
+}
+
+
+.container {
+
+margin:10px auto;
+
+padding:20px;
+
+}
+
+
+#question {
+
+font-size:18px;
+
+}
+
+
+.top-bar {
+
+flex-direction:column;
+
+align-items:stretch;
+
+}
+
+
+.question-counter,
+.timer {
+
+text-align:center;
+
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<!-- =========================================
+     START
+========================================= -->
+
+
+<div id="start">
+
+
+<h1>
+
+اختبار Excel
+
+<br>
+
+للقطاع الطبي و RCM
+
+</h1>
+
+
+<div class="subtitle">
+
+اختبار تدريجي لقياس مهارات
+
+Microsoft Excel
+
+في بيئة العمل الطبية
+
+وإدارة دورة الإيرادات RCM.
+
+</div>
+
+
+<div class="badges">
+
+<span class="badge">
+اختبار تمهيدي
+</span>
+
+<span class="badge">
+10 أسئلة
+</span>
+
+<span class="badge">
+اختبار نهائي
+</span>
+
+<span class="badge">
+15 سؤال
+</span>
+
+<span class="badge">
+Medical & RCM
+</span>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+الاسم بالكامل
+</label>
+
+<input
+type="text"
+id="name"
+placeholder="اكتب اسمك بالكامل"
+>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+رقم الهاتف
+</label>
+
+<input
+type="tel"
+id="phone"
+class="phone-input"
+placeholder="01012345678"
+maxlength="11"
+inputmode="numeric"
+>
+
+</div>
+
+
+<div class="small-note">
+
+رقم الهاتف يجب أن يكون رقمًا مصريًا صحيحًا
+مكونًا من 11 رقمًا.
+
+<br>
+
+يستخدم الرقم لمنع إعادة الاختبار.
+
+</div>
+
+
+<div
+id="startError"
+class="error-message"
+></div>
+
+
+<button
+id="startButton"
+class="main-button"
+onclick="startPreTest()"
+>
+
+ابدأ الاختبار التمهيدي
+
+</button>
+
+
+<div class="warning">
+
+⚠️ لا تغلق الصفحة أو تعيد تحميلها
+أثناء الاختبار.
+
+</div>
+
+
+</div>
+
+
+<!-- =========================================
+     TEST
+========================================= -->
+
+
+<div id="test">
+
+
+<div
+id="stageTitle"
+class="stage-title"
+>
+
+الاختبار التمهيدي
+
+</div>
+
+
+<div class="top-bar">
+
+
+<div
+id="questionNumber"
+class="question-counter"
+>
+
+السؤال 1
+
+</div>
+
+
+<div class="timer">
+
+⏱️
+
+<span id="timer">
+30
+</span>
+
+ثانية
+
+</div>
+
+
+</div>
+
+
+<div class="progress-container">
+
+<div
+id="progress"
+class="progress"
+></div>
+
+</div>
+
+
+<div
+id="levelLabel"
+class="level-label"
+>
+
+المستوى
+
+</div>
+
+
+<h2 id="question"></h2>
+
+
+<div id="options"></div>
+
+
+</div>
+
+
+<!-- =========================================
+     PRE RESULT
+========================================= -->
+
+
+<div id="preResult">
+
+
+<h1>
+نتيجة الاختبار التمهيدي
+</h1>
+
+
+<div class="result-card">
+
+
+<div
+id="preScore"
+class="result-score"
+>
+
+0 / 10
+
+</div>
+
+
+<div
+id="prePercentage"
+class="result-item"
+></div>
+
+
+</div>
+
+
+<div id="preMessage"></div>
+
+
+<p
+id="preSaving"
+class="saving"
+>
+
+جاري حفظ النتيجة...
+
+</p>
+
+
+<button
+id="continueButton"
+class="main-button"
+style="display:none"
+onclick="startFinalTest()"
+>
+
+الانتقال إلى الاختبار النهائي
+
+</button>
+
+
+</div>
+
+
+<!-- =========================================
+     FINAL RESULT
+========================================= -->
+
+
+<div id="result">
+
+
+<h1>
+
+النتيجة النهائية
+
+</h1>
+
+
+<div class="result-card">
+
+
+<div
+id="score"
+class="result-score"
+>
+
+0 / 15
+
+</div>
+
+
+<div
+id="percentage"
+class="result-item"
+></div>
+
+
+<div
+id="level"
+class="result-item"
+></div>
+
+
+<div
+id="duration"
+class="result-item"
+></div>
+
+
+</div>
+
+
+<p
+id="saving"
+class="saving"
+>
+
+جاري حفظ النتيجة...
+
+</p>
+
+
+<button
+id="pdfButton"
+class="main-button"
+style="display:none"
+onclick="openCertificate()"
+>
+
+📄 عرض النتيجة وحفظها PDF
+
+</button>
+
+
+<div class="warning">
+
+بعد فتح صفحة النتيجة اضغط:
+
+<br>
+
+<strong>
+Ctrl + P
+</strong>
+
+<br>
+
+ثم اختر:
+
+<strong>
+Save as PDF
+</strong>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+/************************************************
+ * رابط Apps Script
+ ************************************************/
+
+
+const GOOGLE_SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbyXAoT2TM742x_lsBx4M-sQaVHReE6kMzCyLsuCZbUyJedW3rg4UcqMOpT-_Idle6eI/exec";
+
+
+/************************************************
+ * Settings
+ ************************************************/
+
+
+const PRETEST_PASS_PERCENTAGE =
+70;
+
+
+const QUESTION_TIME =
+30;
+
+
+/************************************************
+ * User
+ ************************************************/
+
+
+let userName =
+"";
+
+
+let userPhone =
+"";
+
+
+/************************************************
+ * Test
+ ************************************************/
+
+
+let currentQuestion =
+0;
+
+
+let currentQuestions =
+[];
+
+
+let currentStage =
+"";
+
+
+let score =
+0;
+
+
+let startTime =
+null;
+
+
+let timerInterval =
+null;
+
+
+let timeLeft =
+QUESTION_TIME;
+
+
+/************************************************
+ * PRE TEST
+ ************************************************/
+
+
+const preQuestions = [
+
+{
+
+level:"تمهيدي",
+
+question:
+"لديك قيمة المطالبات الطبية في الخلايا B2 إلى B20. ما الدالة المناسبة لحساب إجمالي المطالبات؟",
+
+options:[
+
+"=AVERAGE(B2:B20)",
+
+"=SUM(B2:B20)",
+
+"=COUNT(B2:B20)",
+
+"=MAX(B2:B20)"
+
+],
+
+answer:1
+
+},
+
+{
+
+level:"تمهيدي",
+
+question:
+"لديك قيم التحصيل في C2:C100. ما الدالة المناسبة لحساب متوسط التحصيل؟",
+
+options:[
+
+"=SUM(C2:C100)",
+
+"=COUNT(C2:C100)",
+
+"=AVERAGE(C2:C100)",
+
+"=MAX(C2:C100)"
+
+],
+
+answer:2
+
+},
+
+{
+
+level:"تمهيدي",
+
+question:
+"أي رمز تبدأ به المعادلة في Excel؟",
+
+options:[
+
+"+",
+
+"#",
+
+"=",
+
+"$"
+
+],
+
+answer:2
+
+},
+
+{
+
+level:"تمهيدي",
+
+question:
+"لديك Status في D2 وتريد إظهار «مقبول» إذا كانت الحالة Accepted وإلا «مرفوض».",
+
+options:[
+
+'=IF(D2="Accepted","مقبول","مرفوض")',
+
+'=SUM(D2="Accepted")',
+
+'=COUNT(D2="Accepted")',
+
+'=AVERAGE(D2="Accepted")'
+
+],
+
+answer:0
+
+},
+
+{
+
+level:"تمهيدي",
+
+question:
+"لديك عمود يحتوي على حالات المطالبات. تريد حساب عدد المطالبات التي حالتها Rejected.",
+
+options:[
+
+"SUMIF",
+
+"COUNTIF",
+
+"AVERAGE",
+
+"MAX"
+
+],
+
+answer:1
+
+},
+
+{
+
+level:"تمهيدي",
+
+question:
+"ما الاختصار المستخدم لنسخ خلية في Excel؟",
+
+options:[
+
+"Ctrl + V",
+
+"Ctrl + X",
+
+"Ctrl + C",
+
+"Ctrl + S"
+
+],
+
+answer:2
+
+},
+
+{
+
+level:"تمهيدي",
+
+question:
+"Claim Amount في B2 و Paid Amount في C2. ما المعادلة الصحيحة لحساب المتبقي؟",
+
+options:[
+
+"=B2+C2",
+
+"=B2-C2",
+
+"=C2-B2",
+
+"=B2/C2"
+
+],
+
+answer:1
+
+},
+
+{
+
+level:"تمهيدي",
+
+question:
+"أي أداة تستخدم لعرض الصفوف التي تحقق شرطًا معينًا دون حذف باقي البيانات؟",
+
+options:[
+
+"Filter",
+
+"Delete",
+
+"Merge",
+
+"Format"
+
+],
+
+answer:0
+
+},
+
+{
+
+level:"تمهيدي",
+
+question:
+"لديك Claim Amount في B2. تريد معرفة هل القيمة أكبر من 50,000.",
+
+options:[
+
+'=IF(B2>50000,"أعلى","أقل أو يساوي")',
+
+'=SUM(B2>50000)',
+
+'=COUNT(B2>50000)',
+
+'=AVERAGE(B2>50000)'
+
+],
+
+answer:0
+
+},
+
+{
+
+level:"تمهيدي",
+
+question:
+"لديك جدول مطالبات وتريد تلخيص إجمالي المطالبات حسب الطبيب والتخصص وشركة التأمين. ما الأداة الأنسب؟",
+
+options:[
+
+"WordArt",
+
+"PivotTable",
+
+"Spell Check",
+
+"Page Break"
+
+],
+
+answer:1
+
+}
+
+];
+
+
+/************************************************
+ * FINAL TEST
+ ************************************************/
+
+
+const finalQuestions = [
+
+{
+
+level:"سهل",
+
+question:
+"لديك جدول يحتوي على قيمة 20 مطالبة طبية في B2:B21. ما المعادلة الصحيحة لحساب الإجمالي؟",
+
+options:[
+
+"=AVERAGE(B2:B21)",
+
+"=SUM(B2:B21)",
+
+"=COUNT(B2:B21)",
+
+"=MAX(B2:B21)"
+
+],
+
+answer:1
+
+},
+
+{
+
+level:"سهل",
+
+question:
+"لديك قيم المطالبات في C2:C101. ما الدالة المناسبة لحساب المتوسط؟",
+
+options:[
+
+"=SUM(C2:C101)",
+
+"=COUNT(C2:C101)",
+
+"=AVERAGE(C2:C101)",
+
+"=MAX(C2:C101)"
+
+],
+
+answer:2
+
+},
+
+{
+
+level:"سهل",
+
+question:
+"Claim Amount في B2 و Paid Amount في C2. تريد إظهار تم التحصيل إذا كان Paid Amount أكبر من صفر.",
+
+options:[
+
+'=IF(C2>0,"تم التحصيل","لم يتم التحصيل")',
+
+'=IF(B2>0,"تم التحصيل","لم يتم التحصيل")',
+
+'=SUM(C2>0,"تم التحصيل")',
+
+'=COUNTIF(C2>0,"تم التحصيل")'
+
+],
+
+answer:0
+
+},
+
+{
+
+level:"متوسط",
+
+question:
+"لديك Status في D2:D1000 وتريد حساب عدد المطالبات التي حالتها مرفوضة.",
+
+options:[
+
+'=COUNT(D2:D1000,"مرفوضة")',
+
+'=COUNTIF(D2:D1000,"مرفوضة")',
+
+'=SUMIF(D2:D1000,"مرفوضة")',
+
+'=IF(D2:D1000="مرفوضة")'
+
+],
+
+answer:1
+
+},
+
+{
+
+level:"متوسط",
+
+question:
+"لديك Specialty في A و Claim Amount في B. تريد إجمالي المطالبات الخاصة بتخصص Cardiology.",
+
+options:[
+
+'=SUMIF(A2:A1000,"Cardiology",B2:B1000)',
+
+'=COUNTIF(A2:A1000,"Cardiology")',
+
+'=SUM(B2:B1000,"Cardiology")',
+
+'=AVERAGEIF(A2:A1000,"Cardiology")'
+
+],
+
+answer:0
+
+},
+
+{
+
+level:"متوسط",
+
+question:
+"لديك قيم المطالبات في B2:B1000. تريد عدد المطالبات التي تزيد عن 50,000.",
+
+options:[
+
+'=COUNT(B2:B1000,">50000")',
+
+'=COUNTIF(B2:B1000,">50000")',
+
+'=SUMIF(B2:B1000,">50000")',
+
+'=IF(B2:B1000>50000)'
+
+],
+
+answer:1
+
+},
+
+{
+
+level:"صعب",
+
+question:
+"لديك Specialty في A و Insurance Company في B و Claim Amount في C. تريد إجمالي مطالبات Cardiology لدى AXA.",
+
+options:[
+
+'=SUMIF(A:A,"Cardiology",C:C)',
+
+'=SUMIFS(C:C,A:A,"Cardiology",B:B,"AXA")',
+
+'=COUNTIFS(A:A,"Cardiology",B:B,"AXA")',
+
+'=SUM(C:C)'
+
+],
+
+answer:1
+
+},
+
+{
+
+level:"صعب",
+
+question:
+"لديك Doctor ID في A2 وجدول آخر يحتوي Doctor ID في H واسم الطبيب في I. تريد إرجاع اسم الطبيب باستخدام XLOOKUP.",
+
+options:[
+
+'=XLOOKUP(A2,H:H,I:I)',
+
+'=XLOOKUP(H:H,I:I,A2)',
+
+'=VLOOKUP(I:I,A2:H:H,1,FALSE)',
+
+'=MATCH(A2,H:H,I:I)'
+
+],
+
+answer:0
+
+},
+
+{
+
+level:"صعب",
+
+question:
+"تستخدم XLOOKUP ولكن بعض Doctor IDs غير موجودة. تريد عرض غير موجود بدل الخطأ.",
+
+options:[
+
+'=XLOOKUP(A2,H:H,I:I)',
+
+'=IFERROR(XLOOKUP(A2,H:H,I:I),"غير موجود")',
+
+'=IF(XLOOKUP(A2,H:H,I:I),"غير موجود")',
+
+'=COUNTIF(XLOOKUP(A2,H:H,I:I),"غير موجود")'
+
+],
+
+answer:1
+
+},
+
+{
+
+level:"متقدم",
+
+question:
+"لديك التحصيل في B2 والهدف الشهري في $F$1. تريد نسخ المعادلة لأسفل لحساب نسبة تحقيق الهدف.",
+
+options:[
+
+"=B2/F1",
+
+"=B2/$F$1",
+
+"=$B$2/F1",
+
+"=B2/$F1"
+
+],
+
+answer:1
+
+},
+
+{
+
+level:"متقدم",
+
+question:
+"لديك Doctor ID في A وSpecialty في C، وDoctor ID المطلوب في F2. تريد استخراج التخصص باستخدام INDEX و MATCH.",
+
+options:[
+
+"=INDEX(C:C,MATCH(F2,A:A,0))",
+
+"=MATCH(F2,C:C,0)",
+
+"=INDEX(A:A,MATCH(F2,C:C,0))",
+
+"=INDEX(C:C,F2)"
+
+],
+
+answer:0
+
+},
+
+{
+
+level:"متقدم",
+
+question:
+"Claim Amount في B2 و Paid Amount في C2. تريد حساب نسبة التحصيل بدون ظهور #DIV/0! إذا كانت المطالبة صفرًا.",
+
+options:[
+
+"=C2/B2",
+
+"=IFERROR(C2/B2,0)",
+
+"=COUNTIF(C2/B2,0)",
+
+'=IF(C2/B2,"Error",0)'
+
+],
+
+answer:1
+
+},
+
+{
+
+level:"محترف جدًا",
+
+question:
+"لديك Department و Status و Claim Amount. تريد إجمالي المطالبات المرفوضة لقسم Cardiology فقط.",
+
+options:[
+
+'=SUMIF(A:A,"Cardiology",C:C)',
+
+'=SUMIFS(C:C,A:A,"Cardiology",B:B,"Rejected")',
+
+'=COUNTIFS(A:A,"Cardiology",B:B,"Rejected")',
+
+'=SUMIFS(A:A,C:C,"Rejected",B:B,"Cardiology")'
+
+],
+
+answer:1
+
+},
+
+{
+
+level:"محترف جدًا",
+
+question:
+"لديك Doctor و Claim Amount و Paid Amount و Status. تريد تحديد الطبيب صاحب أعلى إجمالي قيمة مطالبات مرفوضة. ما النهج الأكثر احترافية؟",
+
+options:[
+
+"استخدام SUMIFS لتجميع المطالبات المرفوضة حسب الطبيب ثم استخراج القيمة الأكبر",
+
+"استخدام AVERAGE على جميع المطالبات",
+
+"استخدام COUNT على عمود Doctor فقط",
+
+"استخدام SUM على جميع المطالبات دون فلترة"
+
+],
+
+answer:0
+
+},
+
+{
+
+level:"محترف جدًا",
+
+question:
+"لديك جدول RCM يحتوي Patient ID وDoctor وSpecialty وInsurance وClaim Amount وPaid Amount وStatus وDate. تريد تحليلًا شهريًا للتخصصات مع إجمالي المطالبات والتحصيل ونسبة التحصيل وعدد المطالبات المرفوضة مع إمكانية التصفية حسب الطبيب وشركة التأمين. ما الحل الأكثر احترافية؟",
+
+options:[
+
+"استخدام SUM واحدة فقط",
+
+"PivotTable مع Value fields وFilters أو Slicers",
+
+"نسخ البيانات إلى عدة Sheets يدويًا",
+
+"استخدام COUNT فقط على Patient ID"
+
+],
+
+answer:1
+
+}
+
+];
+
+
+/************************************************
+ * START PRE TEST
+ ************************************************/
+
+
+function startPreTest() {
+
+const nameInput =
+document.getElementById("name");
+
+
+const phoneInput =
+document.getElementById("phone");
+
+
+const errorBox =
+document.getElementById("startError");
+
+
+userName =
+nameInput.value.trim();
+
+
+userPhone =
+phoneInput.value
+.replace(/\D/g,"");
+
+
+errorBox.style.display =
+"none";
+
+
+if (!userName) {
+
+showStartError(
+"من فضلك اكتب اسمك بالكامل."
+);
+
+return;
+
+}
+
+
+if (
+!/^01[0125][0-9]{8}$/.test(
+userPhone
+)
+) {
+
+showStartError(
+"أدخل رقم هاتف مصري صحيح مكون من 11 رقمًا."
+);
+
+return;
+
+}
+
+
+const button =
+document.getElementById(
+"startButton"
+);
+
+
+button.disabled =
+true;
+
+
+button.textContent =
+"جاري التحقق...";
+
+
+checkPhoneBeforeStart(
+function(success) {
+
+button.disabled =
+false;
+
+button.textContent =
+"ابدأ الاختبار التمهيدي";
+
+
+if (success) {
+
+beginPreTest();
+
+}
+
+}
+
+);
+
+}
+
+
+/************************************************
+ * ERROR
+ ************************************************/
+
+
+function showStartError(
+message
+) {
+
+const box =
+document.getElementById(
+"startError"
+);
+
+
+box.textContent =
+message;
+
+
+box.style.display =
+"block";
+
+}
+
+
+/************************************************
+ * CHECK PHONE
+ ************************************************/
+
+
+function checkPhoneBeforeStart(
+callback
+) {
+
+const callbackName =
+"phoneCheck_" +
+Date.now();
+
+
+window[callbackName] =
+function(response) {
+
+try {
+
+if (
+response &&
+response.exists
+) {
+
+showStartError(
+"هذا الرقم سبق له دخول الاختبار ولا يمكن إعادة الاختبار."
+);
+
+callback(false);
+
+return;
+
+}
+
+
+if (
+!response ||
+response.success !== true
+) {
+
+showStartError(
+"حدث خطأ أثناء التحقق من رقم الهاتف."
+);
+
+callback(false);
+
+return;
+
+}
+
+
+callback(true);
+
+}
+
+finally {
+
+delete window[
+callbackName
+];
+
+}
+
+};
+
+
+const script =
+document.createElement(
+"script"
+);
+
+
+script.src =
+GOOGLE_SCRIPT_URL +
+"?action=checkPhone" +
+"&phone=" +
+encodeURIComponent(
+userPhone
+) +
+"&callback=" +
+callbackName;
+
+
+script.onerror =
+function() {
+
+showStartError(
+"تعذر الاتصال بالخادم."
+);
+
+delete window[
+callbackName
+];
+
+callback(false);
+
+script.remove();
+
+};
+
+
+document.body.appendChild(
+script
+);
+
+}
+
+
+/************************************************
+ * BEGIN PRE
+ ************************************************/
+
+
+function beginPreTest() {
+
+currentStage =
+"الاختبار التمهيدي";
+
+
+currentQuestions =
+preQuestions;
+
+
+currentQuestion =
+0;
+
+
+score =
+0;
+
+
+startTime =
+new Date();
+
+
+document.getElementById(
+"start"
+).style.display =
+"none";
+
+
+document.getElementById(
+"preResult"
+).style.display =
+"none";
+
+
+document.getElementById(
+"result"
+).style.display =
+"none";
+
+
+document.getElementById(
+"test"
+).style.display =
+"block";
+
+
+document.getElementById(
+"stageTitle"
+).textContent =
+"الاختبار التمهيدي";
+
+
+showQuestion();
+
+}
+
+
+/************************************************
+ * BEGIN FINAL
+ ************************************************/
+
+
+function startFinalTest() {
+
+currentStage =
+"الاختبار النهائي";
+
+
+currentQuestions =
+finalQuestions;
+
+
+currentQuestion =
+0;
+
+
+score =
+0;
+
+
+startTime =
+new Date();
+
+
+document.getElementById(
+"preResult"
+).style.display =
+"none";
+
+
+document.getElementById(
+"result"
+).style.display =
+"none";
+
+
+document.getElementById(
+"test"
+).style.display =
+"block";
+
+
+document.getElementById(
+"stageTitle"
+).textContent =
+"الاختبار النهائي";
+
+
+showQuestion();
+
+}
+
+
+/************************************************
+ * SHOW QUESTION
+ ************************************************/
+
+
+function showQuestion() {
+
+clearInterval(
+timerInterval
+);
+
+
+timeLeft =
+QUESTION_TIME;
+
+
+updateTimer();
+
+
+const question =
+currentQuestions[
+currentQuestion
+];
+
+
+const number =
+currentQuestion + 1;
+
+
+document.getElementById(
+"questionNumber"
+).textContent =
+`السؤال ${number} من ${currentQuestions.length}`;
+
+
+document.getElementById(
+"question"
+).textContent =
+question.question;
+
+
+document.getElementById(
+"levelLabel"
+).textContent =
+`المستوى: ${question.level}`;
+
+
+document.getElementById(
+"progress"
+).style.width =
+(
+number /
+currentQuestions.length *
+100
+) + "%";
+
+
+const options =
+document.getElementById(
+"options"
+);
+
+
+options.innerHTML =
+"";
+
+
+question.options.forEach(
+function(option,index) {
+
+const button =
+document.createElement(
+"button"
+);
+
+
+button.type =
+"button";
+
+
+button.className =
+"option";
+
+
+button.textContent =
+option;
+
+
+button.onclick =
+function() {
+
+selectAnswer(
+index
+);
+
+};
+
+
+options.appendChild(
+button
+);
+
+}
+);
+
+
+timerInterval =
+setInterval(
+function() {
+
+timeLeft--;
+
+updateTimer();
+
+
+if (
+timeLeft <= 0
+) {
+
+clearInterval(
+timerInterval
+);
+
+nextQuestion();
+
+}
+
+},
+1000
+);
+
+}
+
+
+/************************************************
+ * TIMER
+ ************************************************/
+
+
+function updateTimer() {
+
+document.getElementById(
+"timer"
+).textContent =
+timeLeft;
+
+}
+
+
+/************************************************
+ * ANSWER
+ ************************************************/
+
+
+function selectAnswer(
+index
+) {
+
+clearInterval(
+timerInterval
+);
+
+
+const question =
+currentQuestions[
+currentQuestion
+];
+
+
+if (
+index ===
+question.answer
+) {
+
+score++;
+
+}
+
+
+nextQuestion();
+
+}
+
+
+/************************************************
+ * NEXT
+ ************************************************/
+
+
+function nextQuestion() {
+
+currentQuestion++;
+
+
+if (
+currentQuestion >=
+currentQuestions.length
+) {
+
+finishStage();
+
+return;
+
+}
+
+
+showQuestion();
+
+}
+
+
+/************************************************
+ * FINISH STAGE
+ ************************************************/
+
+
+function finishStage() {
+
+clearInterval(
+timerInterval
+);
+
+
+const durationSeconds =
+Math.floor(
+(
+new Date() -
+startTime
+) / 1000
+);
+
+
+const minutes =
+Math.floor(
+durationSeconds / 60
+);
+
+
+const seconds =
+durationSeconds % 60;
+
+
+const duration =
+`${minutes} دقيقة و ${seconds} ثانية`;
+
+
+const total =
+currentQuestions.length;
+
+
+const percentage =
+Math.round(
+score /
+total *
+100
+);
+
+
+document.getElementById(
+"test"
+).style.display =
+"none";
+
+
+if (
+currentStage ===
+"الاختبار التمهيدي"
+) {
+
+finishPreTest(
+percentage,
+total,
+duration
+);
+
+}
+
+else {
+
+finishFinalTest(
+percentage,
+total,
+duration
+);
+
+}
+
+}
+
+
+/************************************************
+ * PRE RESULT
+ ************************************************/
+
+
+function finishPreTest(
+percentage,
+total,
+duration
+) {
+
+document.getElementById(
+"preResult"
+).style.display =
+"block";
+
+
+document.getElementById(
+"preScore"
+).textContent =
+`${score} / ${total}`;
+
+
+document.getElementById(
+"prePercentage"
+).textContent =
+`النسبة: ${percentage}%`;
+
+
+const message =
+document.getElementById(
+"preMessage"
+);
+
+
+const button =
+document.getElementById(
+"continueButton"
+);
+
+
+if (
+percentage >=
+PRETEST_PASS_PERCENTAGE
+) {
+
+message.className =
+"success-box";
+
+
+message.innerHTML =
+`
+🎉 مبروك ${escapeHtml(userName)}
+
+<br><br>
+
+لقد اجتزت الاختبار التمهيدي بنجاح.
+
+<br>
+
+درجتك:
+${score}/${total}
+
+<br>
+
+النسبة:
+${percentage}%
+
+<br><br>
+
+يمكنك الآن الانتقال إلى الاختبار النهائي.
+`;
+
+
+button.style.display =
+"block";
+
+}
+
+else {
+
+message.className =
+"fail-box";
+
+
+message.innerHTML =
+`
+لم تجتز الاختبار التمهيدي.
+
+<br><br>
+
+درجتك:
+${score}/${total}
+
+<br>
+
+النسبة:
+${percentage}%
+
+<br>
+
+الحد الأدنى للنجاح:
+${PRETEST_PASS_PERCENTAGE}%
+`;
+
+
+button.style.display =
+"none";
+
+}
+
+
+saveResultToGoogleSheet({
+
+name:userName,
+
+phone:userPhone,
+
+stage:"الاختبار التمهيدي",
+
+score:score,
+
+total:total,
+
+percentage:percentage,
+
+duration:duration
+
+});
+
+}
+
+
+/************************************************
+ * FINAL RESULT
+ ************************************************/
+
+
+function finishFinalTest(
+percentage,
+total,
+duration
+) {
+
+let level;
+
+
+if (
+percentage >= 90
+) {
+
+level =
+"Excel Advanced / Professional";
+
+}
+
+else if (
+percentage >= 75
+) {
+
+level =
+"Excel Intermediate / Advanced";
+
+}
+
+else if (
+percentage >= 60
+) {
+
+level =
+"Excel Intermediate";
+
+}
+
+else if (
+percentage >= 50
+) {
+
+level =
+"Excel Basic";
+
+}
+
+else {
+
+level =
+"Needs Improvement";
+
+}
+
+
+document.getElementById(
+"result"
+).style.display =
+"block";
+
+
+document.getElementById(
+"score"
+).textContent =
+`${score} / ${total}`;
+
+
+document.getElementById(
+"percentage"
+).textContent =
+`النسبة: ${percentage}%`;
+
+
+document.getElementById(
+"level"
+).textContent =
+`التقييم: ${level}`;
+
+
+document.getElementById(
+"duration"
+).textContent =
+`مدة الاختبار: ${duration}`;
+
+
+document.getElementById(
+"pdfButton"
+).style.display =
+"block";
+
+
+saveResultToGoogleSheet({
+
+name:userName,
+
+phone:userPhone,
+
+stage:"الاختبار النهائي",
+
+score:score,
+
+total:total,
+
+percentage:percentage,
+
+duration:duration
+
+});
+
+}
+
+
+/************************************************
+ * SAVE TO GOOGLE SHEET
+ ************************************************/
+
+
+function saveResultToGoogleSheet(
+data
+) {
+
+const savingElement =
+data.stage ===
+"الاختبار التمهيدي"
+
+?
+
+document.getElementById(
+"preSaving"
+)
+
+:
+
+document.getElementById(
+"saving"
+);
+
+
+savingElement.textContent =
+"جاري حفظ النتيجة في Google Sheets...";
+
+
+const iframe =
+document.createElement(
+"iframe"
+);
+
+
+iframe.name =
+"saveFrame_" +
+Date.now();
+
+
+iframe.style.display =
+"none";
+
+
+document.body.appendChild(
+iframe
+);
+
+
+const form =
+document.createElement(
+"form"
+);
+
+
+form.method =
+"POST";
+
+
+form.action =
+GOOGLE_SCRIPT_URL;
+
+
+form.target =
+iframe.name;
+
+
+form.style.display =
+"none";
+
+
+addField(
+form,
+"name",
+data.name
+);
+
+
+addField(
+form,
+"phone",
+data.phone
+);
+
+
+addField(
+form,
+"stage",
+data.stage
+);
+
+
+addField(
+form,
+"score",
+data.score
+);
+
+
+addField(
+form,
+"total",
+data.total
+);
+
+
+addField(
+form,
+"percentage",
+data.percentage
+);
+
+
+addField(
+form,
+"duration",
+data.duration
+);
+
+
+document.body.appendChild(
+form
+);
+
+
+form.submit();
+
+
+setTimeout(
+function() {
+
+savingElement.textContent =
+"✓ تم حفظ النتيجة في Google Sheets";
+
+
+savingElement.className =
+"saving success";
+
+
+form.remove();
+
+iframe.remove();
+
+},
+2500
+);
+
+}
+
+
+/************************************************
+ * FORM FIELD
+ ************************************************/
+
+
+function addField(
+form,
+name,
+value
+) {
+
+const input =
+document.createElement(
+"input"
+);
+
+
+input.type =
+"hidden";
+
+
+input.name =
+name;
+
+
+input.value =
+value;
+
+
+form.appendChild(
+input
+);
+
+}
+
+
+/************************************************
+ * OPEN CERTIFICATE
+ ************************************************/
+
+
+function openCertificate() {
+
+if (!userPhone) {
+
+alert(
+"لم يتم العثور على رقم الهاتف."
+);
+
+return;
+
+}
+
+
+const url =
+GOOGLE_SCRIPT_URL +
+"?action=certificate" +
+"&phone=" +
+encodeURIComponent(
+userPhone
+);
+
+
+window.open(
+url,
+"_blank"
+);
+
+}
+
+
+/************************************************
+ * HTML ESCAPE
+ ************************************************/
+
+
+function escapeHtml(
+value
+) {
+
+return String(
+value || ""
+)
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
+
+}
+
+
+/************************************************
+ * PHONE INPUT
+ ************************************************/
+
+
+document.getElementById(
+"phone"
+).addEventListener(
+"input",
+function() {
+
+this.value =
+this.value
+.replace(
+/\D/g,
+""
+)
+.substring(
+0,
+11
+);
+
+}
+);
+
+
+</script>
+
+</body>
+
+</html>
